@@ -5,28 +5,32 @@ vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
     -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
+    use('wbthomason/packer.nvim')
 
-    use {
+    use{
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         -- or                            , branch = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
+    use('ThePrimeagen/harpoon')
 
     use({
         'sainnhe/sonokai',
         as = 'sonokai',
-        config = function()
-            vim.cmd('colorscheme sonokai')
-        end
+    })
+    use({
+        'rose-pine/neovim',
+        as = 'rose-pine',
     })
 
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-    use 'nvim-treesitter/nvim-treesitter-context'
+    use('nvim-treesitter/nvim-treesitter-context')
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
 
-    use {
+    use('junegunn/goyo.vim')
+
+    use({
         'VonHeikemen/lsp-zero.nvim',
         requires = {
             -- LSP Support
@@ -46,6 +50,6 @@ return require('packer').startup(function(use)
             {'L3MON4D3/LuaSnip'},
             {'rafamadriz/friendly-snippets'},
         }
-    }
+    })
 
 end)

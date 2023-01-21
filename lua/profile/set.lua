@@ -9,6 +9,7 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.opt.smartindent = true
+vim.opt.smartcase = true
 
 vim.opt.wrap = false
 
@@ -31,10 +32,6 @@ vim.opt.updatetime = 50
 vim.opt.redrawtime = 10000
 
 vim.opt.colorcolumn = '80'
-
--- vim.opt.omnifunc = 'syntaxcomplete#Complete'
-
-vim.opt.smartcase = true
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
