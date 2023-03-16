@@ -22,10 +22,6 @@ return require('packer').startup(function(use)
         'rose-pine/neovim',
         as = 'rose-pine',
     })
-    use({
-        'arzg/vim-colors-xcode',
-        as = 'xcode',
-    })
 
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
     use('nvim-treesitter/nvim-treesitter-context')
@@ -56,6 +52,4 @@ return require('packer').startup(function(use)
             {'rafamadriz/friendly-snippets'},
         }
     })
-    use({'ckipp01/nvim-jenkinsfile-linter', requires = { "nvim-lua/plenary.nvim" } })
-
 end)
