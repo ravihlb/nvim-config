@@ -29,7 +29,7 @@ return require('packer').startup(function(use)
     use('tpope/vim-fugitive')
     use('junegunn/goyo.vim')
     use('evansalter/vim-checklist')
-    use('jiangmiao/auto-pairs')
+    use ('windwp/nvim-autopairs')
 
     use({
         'VonHeikemen/lsp-zero.nvim',
