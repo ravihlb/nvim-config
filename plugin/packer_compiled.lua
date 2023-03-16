@@ -79,6 +79,11 @@ _G.packer_plugins = {
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/LuaSnip",
     url = "https://github.com/L3MON4D3/LuaSnip"
   },
+  ["auto-pairs"] = {
+    loaded = true,
+    path = "/home/ravi/.local/share/nvim/site/pack/packer/start/auto-pairs",
+    url = "https://github.com/jiangmiao/auto-pairs"
+  },
   ["cmp-buffer"] = {
     loaded = true,
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/cmp-buffer",
@@ -139,6 +144,11 @@ _G.packer_plugins = {
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/nvim-cmp",
     url = "https://github.com/hrsh7th/nvim-cmp"
   },
+  ["nvim-jenkinsfile-linter"] = {
+    loaded = true,
+    path = "/home/ravi/.local/share/nvim/site/pack/packer/start/nvim-jenkinsfile-linter",
+    url = "https://github.com/ckipp01/nvim-jenkinsfile-linter"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
@@ -184,10 +194,20 @@ _G.packer_plugins = {
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
   },
+  ["vim-checklist"] = {
+    loaded = true,
+    path = "/home/ravi/.local/share/nvim/site/pack/packer/start/vim-checklist",
+    url = "https://github.com/evansalter/vim-checklist"
+  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
+  },
+  xcode = {
+    loaded = true,
+    path = "/home/ravi/.local/share/nvim/site/pack/packer/start/xcode",
+    url = "https://github.com/arzg/vim-colors-xcode"
   }
 }
 
