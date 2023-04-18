@@ -119,6 +119,11 @@ _G.packer_plugins = {
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/ThePrimeagen/harpoon"
   },
+  ["limelight.vim"] = {
+    loaded = true,
+    path = "/home/ravi/.local/share/nvim/site/pack/packer/start/limelight.vim",
+    url = "https://github.com/junegunn/limelight.vim"
+  },
   ["lsp-zero.nvim"] = {
     loaded = true,
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
@@ -198,6 +203,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["vim-indentwise"] = {
+    loaded = true,
+    path = "/home/ravi/.local/share/nvim/site/pack/packer/start/vim-indentwise",
+    url = "https://github.com/jeetsukumaran/vim-indentwise"
   }
 }
 

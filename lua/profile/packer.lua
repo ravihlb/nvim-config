@@ -28,8 +28,10 @@ return require('packer').startup(function(use)
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
     use('junegunn/goyo.vim')
+    use('junegunn/limelight.vim')
     use('evansalter/vim-checklist')
-    use ('windwp/nvim-autopairs')
+    use('windwp/nvim-autopairs')
+    use('jeetsukumaran/vim-indentwise')
 
     use({
         'VonHeikemen/lsp-zero.nvim',
