@@ -29,9 +29,8 @@ return require('packer').startup(function(use)
     use('tpope/vim-fugitive')
     use('junegunn/goyo.vim')
     use('junegunn/limelight.vim')
-    use('evansalter/vim-checklist')
     use('windwp/nvim-autopairs')
-    use('jeetsukumaran/vim-indentwise')
+    use('numToStr/Comment.nvim')
 
     use({
         'VonHeikemen/lsp-zero.nvim',
