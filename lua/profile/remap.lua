@@ -7,8 +7,8 @@ vim.keymap.set("n", "<C-S-v>", '"+p')
 vim.keymap.set("n", "<Leader>+", ":resize +5<CR>", { silent = true })
 vim.keymap.set("n", "<Leader>-", ":resize -5<CR>", { silent = true })
 
-vim.keymap.set("n", "+", ":vert resize +5<CR>", { silent = true })
-vim.keymap.set("n", "-", ":vert resize -5<CR>", { silent = true })
+vim.keymap.set("n", "+", ":vert resize +5<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "-", ":vert resize -5<CR>", { noremap = true, silent = true })
 
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "<C-d>", "<C-d>zz")

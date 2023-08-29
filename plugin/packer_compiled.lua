@@ -74,6 +74,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["Comment.nvim"] = {
+    loaded = true,
+    path = "/home/ravi/.local/share/nvim/site/pack/packer/start/Comment.nvim",
+    url = "https://github.com/numToStr/Comment.nvim"
+  },
   LuaSnip = {
     loaded = true,
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/LuaSnip",
@@ -139,6 +144,11 @@ _G.packer_plugins = {
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
   },
+  neoformat = {
+    loaded = true,
+    path = "/home/ravi/.local/share/nvim/site/pack/packer/start/neoformat",
+    url = "https://github.com/sbdchd/neoformat"
+  },
   ["nvim-autopairs"] = {
     loaded = true,
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/nvim-autopairs",
@@ -194,20 +204,15 @@ _G.packer_plugins = {
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/undotree",
     url = "https://github.com/mbbill/undotree"
   },
-  ["vim-checklist"] = {
-    loaded = true,
-    path = "/home/ravi/.local/share/nvim/site/pack/packer/start/vim-checklist",
-    url = "https://github.com/evansalter/vim-checklist"
-  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "/home/ravi/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
   },
-  ["vim-indentwise"] = {
+  ["vim-gitgutter"] = {
     loaded = true,
-    path = "/home/ravi/.local/share/nvim/site/pack/packer/start/vim-indentwise",
-    url = "https://github.com/jeetsukumaran/vim-indentwise"
+    path = "/home/ravi/.local/share/nvim/site/pack/packer/start/vim-gitgutter",
+    url = "https://github.com/airblade/vim-gitgutter"
   }
 }
 

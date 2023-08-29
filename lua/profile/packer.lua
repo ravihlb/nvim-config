@@ -14,6 +14,10 @@ return require('packer').startup(function(use)
     }
     use('ThePrimeagen/harpoon')
 
+    -- Git stuff
+    use('airblade/vim-gitgutter')
+
+    -- Themes
     use({
         'sainnhe/sonokai',
         as = 'sonokai',
@@ -31,6 +35,7 @@ return require('packer').startup(function(use)
     use('junegunn/limelight.vim')
     use('windwp/nvim-autopairs')
     use('numToStr/Comment.nvim')
+    use('sbdchd/neoformat')
 
     use({
         'VonHeikemen/lsp-zero.nvim',
