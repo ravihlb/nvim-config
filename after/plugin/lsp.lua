@@ -1,54 +1,64 @@
 local lsp = require('lsp-zero')
 lsp.preset('recommended')
+lsp.extend_lspconfig()
 
-lsp.ensure_installed({
-    'tsserver',
+require('mason').setup()
+require('mason-lspconfig').setup({
+    ensure_installed = { 'tsserver' },
+    handlers = {
+        lsp.default_setup,
+    },
 })
 
+
 -- Fix Undefined global 'vim'
- require'lspconfig'.lua_ls.setup {
-   settings = {
-     Lua = {
-       runtime = {
-         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-         version = 'LuaJIT',
-       },
-       diagnostics = {
-         -- Get the language server to recognize the `vim` global
-         globals = {'vim'},
-       },
-       workspace = {
-         -- Make the server aware of Neovim runtime files
-         library = vim.api.nvim_get_runtime_file("", true),
-       },
-       -- Do not send telemetry data containing a randomized but unique identifier
-       telemetry = {
-         enable = false,
-       },
-     },
-   },
- }
+require'lspconfig'.lua_ls.setup {
+    settings = {
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'},
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
+}
 
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
 local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-  ["<C-Space>"] = cmp.mapping.complete(),
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
+    ["<C-Space>"] = cmp.mapping.complete(),
 })
 
-lsp.setup_nvim_cmp({
-    mapping = cmp_mappings
+cmp.setup({
+    window = {
+        completion = cmp.config.window.bordered(),
+        documentation = cmp.config.window.bordered(),
+    },
+    mapping = cmp_mappings,
 })
 
 lsp.set_preferences({
     sign_icons = {
         error = 'E',
-	warn = 'W',
-	hint = 'H',
-	info = 'I'
+        warn = 'W',
+        hint = 'H',
+        info = 'I'
     }
 })
 
@@ -57,7 +67,7 @@ lsp.on_attach(function(client, bufnr)
 
     if client.name == "eslint" then
         vim.cmd.LspStop('eslint')
-	return
+        return
     end
 
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)

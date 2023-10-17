@@ -1,3 +1,3 @@
 require('profile.remap')
-require('profile.packer')
+require('profile.lazy')
 require('profile.set')

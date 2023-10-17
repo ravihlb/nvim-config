@@ -4,6 +4,8 @@ vim.keymap.set('n', '<C-e>', vim.cmd.Ex)
 vim.keymap.set("n", "<C-S-v>", '"+y')
 vim.keymap.set("n", "<C-S-v>", '"+p')
 
+vim.keymap.set("n", "s", '"_s')
+
 vim.keymap.set("n", "<Leader>+", ":resize +5<CR>", { silent = true })
 vim.keymap.set("n", "<Leader>-", ":resize -5<CR>", { silent = true })
 
