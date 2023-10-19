@@ -23,6 +23,9 @@ require('lazy').setup({
     'windwp/nvim-autopairs',
     'numToStr/Comment.nvim',
     'sbdchd/neoformat',
+    'tpope/vim-dadbod',
+    'kristijanhusak/vim-dadbod-ui',
+    'kristijanhusak/vim-dadbod-completion',
     {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate'
