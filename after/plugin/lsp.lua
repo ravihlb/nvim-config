@@ -1,12 +1,16 @@
-local lsp = require('lsp-zero')
-lsp.preset('recommended')
-lsp.extend_lspconfig()
+local lsp_zero = require('lsp-zero')
+lsp_zero.preset('recommended')
+lsp_zero.extend_lspconfig()
 
 require('mason').setup()
 require('mason-lspconfig').setup({
-    ensure_installed = { 'tsserver' },
+    ensure_installed = { 'tsserver', 'lua_ls' },
     handlers = {
-        lsp.default_setup,
+        lsp_zero.default_setup,
+        lua_ls = function ()
+            local lua_opts = lsp_zero.nvim_lua_ls()
+            require('lspconfig').lua_ls.setup(lua_opts)
+        end,
     },
 })
 
@@ -34,32 +38,45 @@ require'lspconfig'.lua_ls.setup {
     },
 }
 
-
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
-local cmp_mappings = lsp.defaults.cmp_mappings({
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
+local cmp_mappings = {
+    ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-    ['<Tab>'] = cmp.mapping.confirm({ select = true }),
-    ['<C-Space>'] = cmp.mapping.complete(),
-})
+    ['<Tab>'] = cmp.mapping.confirm(),
+}
 
 cmp.setup({
-    window = {
-        completion = cmp.config.window.bordered(),
-        documentation = cmp.config.window.bordered(),
+    snippet = {
+        expand = function(args)
+            require('luasnip').lsp_expand(args.body)
+        end
     },
-    mapping = cmp_mappings,
+    mapping = cmp.mapping.preset.insert(cmp_mappings),
     sources = {
-        { name = 'vim-dadbod-completion' },
-        { name = 'nvim_lsp' },
         { name = 'buffer' },
-        { name = 'path' },
         { name = 'friendly-snippets' },
-    }
+        { name = 'luasnip' },
+        { name = 'nvim_lsp' },
+        { name = 'nvim_lua' },
+        { name = 'path' },
+        { name = 'tmux' },
+        { name = 'vim-dadbod-completion' },
+        { name = 'cmdline' },
+    },
 })
 
-lsp.set_preferences({
+cmp.setup.filetype('gitcommit', {
+    sources = cmp.config.sources({
+        { name = 'git' },
+        { name = 'conventionalcommits' },
+    }, {
+        { name = 'buffer' },
+    })
+})
+
+lsp_zero.set_preferences({
     sign_icons = {
         error = 'E',
         warn = 'W',
@@ -68,7 +85,7 @@ lsp.set_preferences({
     }
 })
 
-lsp.on_attach(function(client, bufnr)
+lsp_zero.on_attach(function(client, bufnr)
     local opts= {buffer = bufnr, remap = false}
 
     if client.name == 'eslint' then
@@ -88,7 +105,7 @@ lsp.on_attach(function(client, bufnr)
     vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
 end)
 
-lsp.setup()
+lsp_zero.setup()
 
 vim.diagnostic.config({
     virtual_text = true,

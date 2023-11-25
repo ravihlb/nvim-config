@@ -25,7 +25,6 @@ require('lazy').setup({
     'sbdchd/neoformat',
     'tpope/vim-dadbod',
     'kristijanhusak/vim-dadbod-ui',
-    'kristijanhusak/vim-dadbod-completion',
     {
         'nvim-treesitter/nvim-treesitter',
         build = ':TSUpdate'
@@ -54,16 +53,27 @@ require('lazy').setup({
             {'williamboman/mason.nvim'},
             {'williamboman/mason-lspconfig.nvim'},
 
-            -- Autocompletion
-            {'hrsh7th/nvim-cmp'},
+            -- Autocompletion / nvim-cmp
+            {'andersevenrud/cmp-tmux'},
+            {'davidsierradz/cmp-conventionalcommits'},
             {'hrsh7th/cmp-buffer'},
-            {'hrsh7th/cmp-path'},
-            {'saadparwaiz1/cmp_luasnip'},
+            {'hrsh7th/cmp-cmdline'},
             {'hrsh7th/cmp-nvim-lsp'},
             {'hrsh7th/cmp-nvim-lua'},
+            {'hrsh7th/cmp-path'},
+            {'hrsh7th/nvim-cmp'},
+            {'petertriho/cmp-git'},
+            {'saadparwaiz1/cmp_luasnip'},
+            {'kristijanhusak/vim-dadbod-completion'},
 
             -- Snippets
-            {'L3MON4D3/LuaSnip'},
+            {
+                "L3MON4D3/LuaSnip",
+                -- follow latest release.
+                version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+                -- install jsregexp (optional!).
+                build = "make install_jsregexp"
+            },
             {'rafamadriz/friendly-snippets'},
         }
     }
