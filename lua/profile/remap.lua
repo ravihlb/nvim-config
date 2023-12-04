@@ -29,3 +29,12 @@ vim.keymap.set({"n", "v"}, "$", "g_")
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
 vim.keymap.set("n", "<F3>", ':d<CR>')
+
+vim.keymap.set({ "n", "v" }, "<leader>f", function()
+    require("conform").format({
+        lsp_fallback = true,
+        async = false,
+        timeout_ms = 500
+    })
+    end, {desc = "Format file or selected range"}
+)
