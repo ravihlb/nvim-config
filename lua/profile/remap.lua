@@ -1,6 +1,5 @@
 vim.g.mapleader = ' '
 vim.keymap.set("n", ":cd", ":cd %:p:h<CR>")
-vim.keymap.set('n', '<C-e>', vim.cmd.Vex)
 
 vim.keymap.set("n", "<C-S-v>", '"+y')
 vim.keymap.set("n", "<C-S-v>", '"+p')
@@ -24,7 +23,7 @@ vim.keymap.set("n", "k", "gk")
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv")
 
-vim.keymap.set({"n", "v"}, "$", "g_")
+vim.keymap.set({ "n", "v" }, "$", "g_")
 
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
@@ -36,5 +35,5 @@ vim.keymap.set({ "n", "v" }, "<leader>f", function()
         async = false,
         timeout_ms = 500
     })
-    end, {desc = "Format file or selected range"}
+end, { desc = "Format file or selected range" }
 )
