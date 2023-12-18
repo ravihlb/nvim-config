@@ -25,6 +25,7 @@ require("lazy").setup({
 	"sbdchd/neoformat",
 	"tpope/vim-dadbod",
 	"kristijanhusak/vim-dadbod-ui",
+	"ThePrimeagen/git-worktree.nvim",
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
