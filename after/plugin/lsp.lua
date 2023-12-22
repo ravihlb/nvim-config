@@ -148,3 +148,5 @@ lsp_zero.setup()
 vim.diagnostic.config({
 	virtual_text = true,
 })
+
+require("nvim-ts-autotag").setup()

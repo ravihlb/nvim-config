@@ -68,6 +68,8 @@ require("lazy").setup({
 			{ "saadparwaiz1/cmp_luasnip" },
 			{ "kristijanhusak/vim-dadbod-completion" },
 			{ "onsails/lspkind.nvim" },
+			{ "evanleck/vim-svelte" },
+			{ "windwp/nvim-ts-autotag" },
 
 			-- Snippets
 			{
