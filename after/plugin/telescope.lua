@@ -6,6 +6,7 @@ require("telescope").load_extension("git_worktree")
 
 keymap("n", "<C-p>", builtin.git_files, {})
 keymap("n", "<C-f>", builtin.find_files, {})
+keymap("n", "<C-h>", builtin.help_tags, {})
 keymap("n", "<leader>ps", builtin.live_grep, {})
 keymap("n", "<C-b>", builtin.buffers, {})
 
