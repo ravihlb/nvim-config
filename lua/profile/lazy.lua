@@ -59,6 +59,7 @@ require("lazy").setup({
 			{ "andersevenrud/cmp-tmux" },
 			{ "davidsierradz/cmp-conventionalcommits" },
 			{ "hrsh7th/cmp-buffer" },
+			{ "rasulomaroff/cmp-bufname" },
 			{ "hrsh7th/cmp-cmdline" },
 			{ "hrsh7th/cmp-nvim-lsp" },
 			{ "hrsh7th/cmp-nvim-lua" },
@@ -67,6 +68,7 @@ require("lazy").setup({
 			{ "petertriho/cmp-git" },
 			{ "saadparwaiz1/cmp_luasnip" },
 			{ "kristijanhusak/vim-dadbod-completion" },
+
 			{ "onsails/lspkind.nvim" },
 			{ "evanleck/vim-svelte" },
 			{ "windwp/nvim-ts-autotag" },
