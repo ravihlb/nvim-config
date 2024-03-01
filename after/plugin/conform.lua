@@ -4,19 +4,18 @@ conform.event = { "BufReadPre", "BufNewFile" }
 
 conform.setup({
 	formatters_by_ft = {
-		javascript = { "prettierd" },
-		typescript = { "prettierd" },
-		javascriptreact = { "prettierd" },
-		typescriptreact = { "prettierd" },
-		svelte = { "prettierd" },
-		css = { "prettierd" },
-		html = { "prettierd" },
-		json = { "prettierd" },
-		yaml = { "prettierd" },
-		markdown = { "prettierd" },
+		javascript = { "eslint_d" },
+		typescript = { "eslint_d" },
+		javascriptreact = { "eslint_d" },
+		typescriptreact = { "eslint_d" },
+		svelte = { "eslint_d" },
+		css = { "eslint_d" },
+		html = { "eslint_d" },
+		json = { "eslint_d" },
+		yaml = { "eslint_d" },
+		markdown = { "eslint_d" },
 		lua = { "stylua" },
-		php = { "phpcbf" },
-		gdscript = { "gdtoolkit" },
+		gdscript = { "gdformat" },
 		python = { "isort", "black" },
 	},
 	format_on_save = {
@@ -25,12 +24,6 @@ conform.setup({
 		timeout_ms = 500,
 	},
 })
-
-require("conform").formatters.prettierd = {
-	env = {
-		string.format("PRETTIERD_DEFAULT_CONFIG=%s", vim.fn.expand("~/.config/nvim/utils/.prettierrc.json")),
-	},
-}
 
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = "*",
