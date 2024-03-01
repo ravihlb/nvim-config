@@ -14,7 +14,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	"ThePrimeagen/harpoon",
 	"airblade/vim-gitgutter",
 	"mbbill/undotree",
 	"tpope/vim-fugitive",
@@ -22,10 +21,14 @@ require("lazy").setup({
 	"junegunn/limelight.vim",
 	"windwp/nvim-autopairs",
 	"numToStr/Comment.nvim",
-	"sbdchd/neoformat",
 	"tpope/vim-dadbod",
 	"kristijanhusak/vim-dadbod-ui",
 	"ThePrimeagen/git-worktree.nvim",
+	{
+		"ThePrimeagen/harpoon",
+		branch = "harpoon2",
+		dependencies = { "nvim-lua/plenary.nvim" },
+	},
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
