@@ -38,6 +38,10 @@ require("lspconfig").lua_ls.setup({
 	},
 })
 
+require'lspconfig'.volar.setup{
+    filetypes = {'vue'}
+}
+
 lsp_zero.set_preferences({
 	sign_icons = {
 		error = "E",
