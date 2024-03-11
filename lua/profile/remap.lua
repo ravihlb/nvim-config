@@ -11,8 +11,6 @@ vim.keymap.set("n", "s", '"_s')
 vim.keymap.set("n", "<Leader>+", ":resize +5<CR>", { silent = true })
 vim.keymap.set("n", "<Leader>-", ":resize -5<CR>", { silent = true })
 
-vim.keymap.set("n", "<Leader>w", ":w<CR> @w")
-
 vim.keymap.set("n", "+", ":vert resize +5<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "-", ":vert resize -5<CR>", { noremap = true, silent = true })
 
@@ -35,6 +33,6 @@ vim.keymap.set({ "n", "v" }, "<leader>f", function()
 	require("conform").format({
 		lsp_fallback = true,
 		async = false,
-		timeout_ms = 500,
+		timeout_ms = 700,
 	})
 end, { desc = "Format file or selected range" })
