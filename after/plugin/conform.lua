@@ -1,19 +1,22 @@
 local conform = require("conform")
 
+local es_formatters = { { "biome" } }
+
 conform.setup({
 	formatters_by_ft = {
-		javascript = { "eslint_d" },
-		typescript = { "eslint_d" },
-		javascriptreact = { "eslint_d" },
-		typescriptreact = { "eslint_d" },
-		svelte = { "eslint_d" },
-		css = { "eslint_d" },
-		html = { "eslint_d" },
-		json = { "eslint_d" },
-		yaml = { "eslint_d" },
-		markdown = { "eslint_d" },
+		javascript = es_formatters,
+		typescript = es_formatters,
+		javascriptreact = es_formatters,
+		typescriptreact = es_formatters,
+		svelte = es_formatters,
+		css = es_formatters,
+		html = es_formatters,
+		json = es_formatters,
+		yaml = es_formatters,
+		markdown = es_formatters,
 		lua = { "stylua" },
 		gdscript = { "gdformat" },
 		python = { "isort", "black" },
+		bash = { "shfmt" },
 	},
 })
