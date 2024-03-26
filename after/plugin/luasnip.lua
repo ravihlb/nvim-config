@@ -17,3 +17,17 @@ vim.keymap.set({ "i", "s" }, "<C-E>", function()
 		ls.change_choice(1)
 	end
 end, { silent = true })
+
+ls.add_snippets(nil, {
+	javascript = {
+		ls.snippet("clog", {
+			ls.text_node("console.log("),
+			ls.insert_node(1),
+			ls.text_node(")"),
+		}),
+	},
+})
+
+ls.filetype_extend("typescript", {
+	"javascript",
+})
