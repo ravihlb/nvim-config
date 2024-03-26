@@ -1,6 +1,4 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", ":cd", ":cd %:p:h<CR>")
-
 vim.keymap.set("n", "<C-S-v>", '"+y')
 vim.keymap.set("n", "<C-S-v>", '"+p')
 
