@@ -19,6 +19,7 @@ require("lazy").setup({
 	"tpope/vim-fugitive",
 	"junegunn/goyo.vim",
 	"junegunn/limelight.vim",
+	"windwp/nvim-autopairs",
 	"numToStr/Comment.nvim",
 	"tpope/vim-dadbod",
 	"kristijanhusak/vim-dadbod-ui",
