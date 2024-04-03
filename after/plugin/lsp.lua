@@ -1,4 +1,6 @@
 local lsp_zero = require("lsp-zero")
+local lspconfig = require("lspconfig")
+
 lsp_zero.preset("recommended")
 lsp_zero.extend_lspconfig()
 
@@ -9,13 +11,13 @@ require("mason-lspconfig").setup({
 		lsp_zero.default_setup,
 		lua_ls = function()
 			local lua_opts = lsp_zero.nvim_lua_ls()
-			require("lspconfig").lua_ls.setup(lua_opts)
+			lspconfig.lua_ls.setup(lua_opts)
 		end,
 	},
 })
 
 -- Fix Undefined global 'vim'
-require("lspconfig").lua_ls.setup({
+lspconfig.lua_ls.setup({
 	settings = {
 		Lua = {
 			runtime = {
@@ -38,9 +40,29 @@ require("lspconfig").lua_ls.setup({
 	},
 })
 
-require'lspconfig'.volar.setup{
-    filetypes = {'vue'}
-}
+local mason_registry = require("mason-registry")
+local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
+	.. "/node_modules/@vue/language-server"
+
+lspconfig.tsserver.setup({
+	init_options = {
+		plugins = {
+			{
+				name = "@vue/typescript-plugin",
+				location = vue_language_server_path,
+				languages = { "vue" },
+			},
+		},
+	},
+})
+
+lspconfig.volar.setup({
+	init_options = {
+		vue = {
+			hybridMode = false,
+		},
+	},
+})
 
 lsp_zero.set_preferences({
 	sign_icons = {
