@@ -4,7 +4,9 @@ local builtin = require("telescope.builtin")
 require("telescope").load_extension("git_worktree")
 
 keymap("n", "<C-p>", builtin.git_files, {})
-keymap("n", "<C-f>", builtin.find_files, {})
+keymap("n", "<C-f>", function()
+	builtin.find_files({ hidden = true })
+end)
 keymap("n", "<C-h>", builtin.help_tags, {})
 keymap("n", "<C-b>", builtin.buffers, {})
 
