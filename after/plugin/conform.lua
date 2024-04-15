@@ -21,7 +21,7 @@ conform.setup({
 	},
 	format_on_save = function(bufnr)
 		-- Disable with a global or buffer-local variable
-		if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+		if not vim.g.enable_autoformat or not vim.b[bufnr].enable_autoformat then
 			return
 		end
 		return { timeout_ms = 500, lsp_fallback = true }
@@ -31,10 +31,18 @@ conform.setup({
 vim.api.nvim_create_user_command("FormatOnSaveToggle", function(args)
 	if args.bang then
 		-- FormatOnSaveToggle! will toggle just for current buffer
-		vim.b.disable_autoformat = not vim.b.disable_autoformat
+		if not vim.b.enable_autoformat then
+			vim.b.enable_autoformat = true
+		else
+			vim.b.enable_autoformat = false
+		end
 	end
 
-	vim.g.disable_autoformat = not vim.g.disable_autoformat
+	if not vim.g.enable_autoformat then
+		vim.g.enable_autoformat = true
+	else
+		vim.g.enable_autoformat = false
+	end
 end, {
 	desc = "Toggle autoformat on save.",
 	bang = true,
