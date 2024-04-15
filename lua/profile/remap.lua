@@ -2,8 +2,6 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<C-S-v>", '"+y')
 vim.keymap.set("n", "<C-S-v>", '"+p')
 
-vim.keymap.set("n", "<C-q>", "<C-a>")
-
 vim.keymap.set("n", "s", '"_s')
 
 vim.keymap.set("n", "<Leader>+", ":resize +5<CR>", { silent = true })
