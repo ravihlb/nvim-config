@@ -1,34 +1,39 @@
+local map = vim.keymap.set
+
 vim.g.mapleader = " "
-vim.keymap.set("n", "<C-S-v>", '"+y')
-vim.keymap.set("n", "<C-S-v>", '"+p')
+map("n", "<C-S-v>", '"+y')
+map("n", "<C-S-v>", '"+p')
 
-vim.keymap.set("n", "s", '"_s')
+map("n", "s", '"_s')
 
-vim.keymap.set("n", "<Leader>+", ":resize +5<CR>", { silent = true })
-vim.keymap.set("n", "<Leader>-", ":resize -5<CR>", { silent = true })
+map("n", "<Leader>+", ":resize +5<CR>", { silent = true })
+map("n", "<Leader>-", ":resize -5<CR>", { silent = true })
 
-vim.keymap.set("n", "+", ":vert resize +5<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "-", ":vert resize -5<CR>", { noremap = true, silent = true })
+map("n", "+", ":vert resize +5<CR>", { noremap = true, silent = true })
+map("n", "-", ":vert resize -5<CR>", { noremap = true, silent = true })
 
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
+map("n", "<C-d>", "<C-d>zz")
 
-vim.keymap.set("n", "j", "gj")
-vim.keymap.set("n", "k", "gk")
+map("n", "j", "gj")
+map("n", "k", "gk")
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '>-2<CR>gv=gv")
+map("v", "J", ":m '>+1<CR>gv=gv")
+map("v", "K", ":m '>-2<CR>gv=gv")
 
-vim.keymap.set({ "n", "v" }, "$", "g_")
+map({ "n", "v" }, "$", "g_")
 
-vim.keymap.set("i", "<C-c>", "<Esc>")
+map("i", "<C-c>", "<Esc>")
 
-vim.keymap.set("n", "<F3>", ":d<CR>")
+map("n", "<F3>", ":d<CR>")
 
-vim.keymap.set({ "n", "v" }, "<leader>f", function()
+map({ "n", "v" }, "<leader>f", function()
 	require("conform").format({
 		lsp_fallback = true,
 		async = false,
 		timeout_ms = 700,
 	})
 end, { desc = "Format file or selected range" })
+
+map("n", "<C-j>", ":cnext<CR>")
+map("n", "<C-k>", ":cprev<CR>")
