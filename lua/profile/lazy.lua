@@ -42,13 +42,14 @@ require("lazy").setup({
 		version = "0.1.x",
 		dependencies = { { "nvim-lua/plenary.nvim" } },
 	},
+
+	-- colorschemes
 	{
 		"sainnhe/sonokai",
 		name = "sonokai",
 	},
 	{
-		"rose-pine/neovim",
-		name = "rose-pine",
+		"rebelot/kanagawa.nvim",
 	},
 	{
 		"VonHeikemen/lsp-zero.nvim",

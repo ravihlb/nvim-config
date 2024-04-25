@@ -4,29 +4,21 @@ function SetupSonokai(name)
 	vim.g.sonokai_transparent_background = 1
 end
 
-function ToggleBackgroundTheme()
-	if vim.opt.background == "light" then
-		vim.opt.background = "dark"
-	else
-		if vim.opt.background == "dark" then
-			vim.opt.background = "light"
-		end
-	end
-end
+require("kanagawa").setup({
+	colors = {
+        palette = {
+            lotusWhite3 = "#f4efc9",
+            sumiInk3 = "#1D1C19"
+        },
+		theme = {
+			all = {
+				ui = {
+					bg_gutter = "none",
+				},
+			},
+		},
+	},
+})
 
-function ColorMyPencils(color, theme)
-	if theme == nil then
-		theme = "shusia"
-	end
-
-	if color ~= "rose-pine" then
-		color = color or "sonokai"
-		SetupSonokai(theme)
-	end
-	vim.cmd.colorscheme(color)
-
-	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-end
-
-ColorMyPencils()
+SetupSonokai('atlantis')
+vim.cmd("colorscheme kanagawa")
