@@ -55,13 +55,33 @@ lspconfig.tsserver.setup({
 		},
 	},
 })
-
+-- No need to set `hybridMode` to `true` as it's the default value
 lspconfig.volar.setup({
 	init_options = {
 		vue = {
 			hybridMode = false,
 		},
 	},
+})
+
+local css_containing_filetypes = {
+	"css",
+	"scss",
+	"less",
+	"vue",
+}
+
+lspconfig.css_variables.setup({
+	filetypes = css_containing_filetypes,
+})
+
+lspconfig.stylelint_lsp.setup({
+	filetypes = css_containing_filetypes,
+	autoFixOnFormat = true,
+})
+
+lspconfig.eslint_lsp.setup({
+	filetypes = { "javascript", "typescript", "vue" },
 })
 
 lsp_zero.set_preferences({

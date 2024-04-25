@@ -80,3 +80,13 @@ cmp.setup.cmdline({ ":" }, {
 		{ name = "buffer" },
 	}),
 })
+
+--- Disable all completion on markdown files
+vim.api.nvim_create_autocmd("Filetype", {
+    pattern = {
+        "markdown"
+    },
+    callback = function ()
+        cmp.setup({ enabled = false })
+    end
+})
