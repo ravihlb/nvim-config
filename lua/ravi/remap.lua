@@ -37,3 +37,22 @@ end, { desc = "Format file or selected range" })
 
 map("n", "<C-j>", ":cnext<CR>")
 map("n", "<C-k>", ":cprev<CR>")
+
+--- Markdown specific mappings
+vim.api.nvim_create_augroup("markdown", { clear = true })
+
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = "markdown",
+    pattern = { "*.md" },
+    callback = function()
+        vim.keymap.set("v", "<leader>l", '"2c["2pA]()h')
+    end
+})
+
+vim.api.nvim_create_autocmd("BufWinLeave", {
+    group = "markdown",
+    pattern = { "*.md" },
+    callback = function()
+        vim.keymap.del("v", "<leader>l")
+    end
+})
