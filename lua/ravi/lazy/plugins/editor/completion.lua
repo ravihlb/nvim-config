@@ -3,6 +3,7 @@ return {
 	name = "cmp",
 	dependencies = {
 		"onsails/lspkind.nvim",
+		"saadparwaiz1/cmp_luasnip",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -24,6 +25,7 @@ return {
 			mapping = cmp.mapping.preset.insert(cmp_mappings),
 			sources = {
 				{ name = "nvim_lsp" },
+				{ name = "nvim_lsp_signature_help" },
 				{ name = "luasnip" },
 				{ name = "nvim_lua" },
 				{ name = "path" },
