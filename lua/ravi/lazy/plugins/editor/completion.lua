@@ -4,6 +4,10 @@ return {
 	dependencies = {
 		"onsails/lspkind.nvim",
 		"saadparwaiz1/cmp_luasnip",
+        {
+          "ray-x/lsp_signature.nvim",
+          event = "VeryLazy",
+        },
 	},
 	config = function()
 		local cmp = require("cmp")

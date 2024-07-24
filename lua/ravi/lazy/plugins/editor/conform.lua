@@ -27,7 +27,7 @@ return {
 				if not vim.g.enable_autoformat or not vim.b[bufnr].enable_autoformat then
 					return
 				end
-				return { timeout_ms = 500, lsp_fallback = true }
+				return {lsp_format = "fallback", timeout_ms = 500}
 			end,
 		})
 

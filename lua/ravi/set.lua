@@ -1,4 +1,4 @@
-vim.opt.guicursor = "i:blinkon0,n-v-c:blinkon250"
+vim.opt.guicursor = "i:blinkon250,n-v-c:block"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -42,3 +42,19 @@ vim.g.netrw_preview = 0
 vim.g.netrw_browse_split = 4
 
 vim.o.conceallevel = 1
+
+-- function GetFilename()
+--     local filename = vim.fn.expand("%:t:r")
+-- 	if not filename or filename == "." then
+-- 		return null
+-- 	end
+--
+-- 	print(filename)
+-- 	vim.g.filename = filename
+--
+-- 	return filename
+-- end
+
+function PrintFilename()
+	print(vim.fn.expand("%:t:r"))
+end

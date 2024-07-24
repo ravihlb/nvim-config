@@ -6,7 +6,7 @@ return {
 			colors = {
 				palette = {
 					lotusWhite3 = "#f4efc9",
-					sumiInk3 = "#1D1C19",
+					sumiInk3 = "#191A1D",
 				},
 				theme = {
 					all = {

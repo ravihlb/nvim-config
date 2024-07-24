@@ -164,21 +164,18 @@ return {
 			},
 		})
 
-		function OilUp()
-            print("OilUp")
+        function RevealOnSidebar()
+            local original_splitright = vim.o.splitright
+            vim.o.splitright = false
 
-			if vim.api.nvim_get_option_value("filetype", {}) == "oil" then
-				return
-			end
+            vim.api.nvim_exec2("vsplit", {})
+            vim.api.nvim_exec2("Oil", {})
+            vim.api.nvim_exec2("vert resize 30", {})
 
-            print("Setting splitright_val")
-			local splitright_val = vim.opt.splitright
+            vim.o.splitright = original_splitright
+        end
 
-			vim.opt.splitright = false
-            vim.fn.execute("35 vsplit" .. vim.fn.expand("%:p:h"))
-			vim.opt.splitright = splitright_val
-		end
-
-		vim.keymap.set("n", "<C-e>", OilUp)
+        vim.keymap.set("n", "<C-e>", RevealOnSidebar)
+		vim.keymap.set("n", "<leader>o", ":Oil<CR>")
 	end,
 }

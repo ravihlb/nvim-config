@@ -19,7 +19,6 @@ return {
 		{ "kristijanhusak/vim-dadbod-completion" },
 
 		{ "onsails/lspkind.nvim" },
-		{ "evanleck/vim-svelte" },
 		{ "windwp/nvim-ts-autotag" },
 
 		-- Snippets
@@ -95,7 +94,7 @@ return {
 		lspconfig.volar.setup({
 			init_options = {
 				vue = {
-					hybridMode = true,
+					hybridMode = false,
 				},
 			},
 		})
@@ -111,10 +110,14 @@ return {
 			filetypes = css_containing_filetypes,
 		})
 
-		lspconfig.stylelint_lsp.setup({
-			filetypes = css_containing_filetypes,
-			autoFixOnFormat = true,
-		})
+        lspconfig.html.setup({
+            filetypes = {"html", "svx", "svelte"}
+        })
+
+		-- lspconfig.stylelint_lsp.setup({
+		-- 	filetypes = css_containing_filetypes,
+		-- 	autoFixOnFormat = true,
+		-- })
 
 		-- lspconfig.eslint_lsp.setup({
 		--     filetypes = { "javascript", "typescript", "vue" },
