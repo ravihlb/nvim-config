@@ -2,24 +2,23 @@ return {
 	"VonHeikemen/lsp-zero.nvim",
 	dependencies = {
 		-- LSP Support
-		{ "neovim/nvim-lspconfig" },
-		{ "williamboman/mason.nvim" },
-		{ "williamboman/mason-lspconfig.nvim" },
-
+		"neovim/nvim-lspconfig",
+		"williamboman/mason.nvim",
+		"williamboman/mason-lspconfig.nvim",
 		-- Autocompletion / nvim-cmp
-		{ "andersevenrud/cmp-tmux" },
-		{ "davidsierradz/cmp-conventionalcommits" },
-		{ "hrsh7th/cmp-buffer" },
-		{ "rasulomaroff/cmp-bufname" },
-		{ "hrsh7th/cmp-cmdline" },
-		{ "hrsh7th/cmp-nvim-lsp" },
-		{ "hrsh7th/cmp-nvim-lua" },
-		{ "hrsh7th/cmp-path" },
-		{ "petertriho/cmp-git" },
-		{ "kristijanhusak/vim-dadbod-completion" },
-
-		{ "onsails/lspkind.nvim" },
-		{ "windwp/nvim-ts-autotag" },
+		"andersevenrud/cmp-tmux",
+		"davidsierradz/cmp-conventionalcommits",
+		"hrsh7th/cmp-buffer",
+		"rasulomaroff/cmp-bufname",
+		"hrsh7th/cmp-cmdline",
+		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-nvim-lua",
+		"hrsh7th/cmp-path",
+		"petertriho/cmp-git",
+		"kristijanhusak/vim-dadbod-completion",
+		"onsails/lspkind.nvim",
+		"windwp/nvim-ts-autotag",
+        "j-hui/fidget.nvim",
 
 		-- Snippets
 		{
@@ -32,141 +31,95 @@ return {
 		},
 	},
 	config = function()
-		local lsp_zero = require("lsp-zero")
-		local lspconfig = require("lspconfig")
+        local cmp = require('cmp')
+        local cmp_lsp = require("cmp_nvim_lsp")
+        local capabilities = vim.tbl_deep_extend(
+            "force",
+            {},
+            vim.lsp.protocol.make_client_capabilities(),
+            cmp_lsp.default_capabilities())
 
-		lsp_zero.preset("recommended")
-		lsp_zero.extend_lspconfig()
+        require("fidget").setup({})
+        require("mason").setup()
+        require("mason-lspconfig").setup({
+            ensure_installed = {
+                "lua_ls",
+                "rust_analyzer",
+                "gopls",
+            },
+            handlers = {
+                function(server_name) -- default handler (optional)
+                    require("lspconfig")[server_name].setup {
+                        capabilities = capabilities
+                    }
+                end,
 
-		require("mason").setup()
-		require("mason-lspconfig").setup({
-			ensure_installed = { "tsserver", "lua_ls" },
-			handlers = {
-				lsp_zero.default_setup,
-				lua_ls = function()
-					local lua_opts = lsp_zero.nvim_lua_ls()
-					lspconfig.lua_ls.setup(lua_opts)
-				end,
-			},
-		})
+                zls = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.zls.setup({
+                        root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
+                        settings = {
+                            zls = {
+                                enable_inlay_hints = true,
+                                enable_snippets = true,
+                                warn_style = true,
+                            },
+                        },
+                    })
+                    vim.g.zig_fmt_parse_errors = 0
+                    vim.g.zig_fmt_autosave = 0
 
-		-- Fix Undefined global 'vim'
-		lspconfig.lua_ls.setup({
-			settings = {
-				Lua = {
-					runtime = {
-						-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-						version = "LuaJIT",
-					},
-					diagnostics = {
-						-- Get the language server to recognize the `vim` global
-						globals = { "vim" },
-					},
-					workspace = {
-						-- Make the server aware of Neovim runtime files
-						library = vim.api.nvim_get_runtime_file("", true),
-					},
-					-- Do not send telemetry data containing a randomized but unique identifier
-					telemetry = {
-						enable = false,
-					},
-				},
-			},
-		})
-
-		local mason_registry = require("mason-registry")
-		local vue_language_server_path = mason_registry.get_package("vue-language-server"):get_install_path()
-			.. "/node_modules/@vue/language-server"
-
-		lspconfig.tsserver.setup({
-            filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx", "vue" },
-			init_options = {
-				plugins = {
-					{
-						name = "@vue/typescript-plugin",
-						location = vue_language_server_path,
-						languages = { "vue" },
-					},
-				},
-			},
-		})
-		-- No need to set `hybridMode` to `true` as it's the default value
-		lspconfig.volar.setup({
-			init_options = {
-				vue = {
-					hybridMode = false,
-				},
-			},
-		})
-
-		local css_containing_filetypes = {
-			"css",
-			"scss",
-			"less",
-			"vue",
-		}
-
-		lspconfig.css_variables.setup({
-			filetypes = css_containing_filetypes,
-		})
-
-        lspconfig.html.setup({
-            filetypes = {"html", "svx", "svelte"}
+                end,
+                ["lua_ls"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.lua_ls.setup {
+                        capabilities = capabilities,
+                        settings = {
+                            Lua = {
+                                runtime = { version = "Lua 5.1" },
+                                diagnostics = {
+                                    globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
+                                }
+                            }
+                        }
+                    }
+                end,
+            }
         })
 
-		-- lspconfig.stylelint_lsp.setup({
-		-- 	filetypes = css_containing_filetypes,
-		-- 	autoFixOnFormat = true,
-		-- })
+        local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
-		-- lspconfig.eslint_lsp.setup({
-		--     filetypes = { "javascript", "typescript", "vue" },
-		-- })
+        cmp.setup({
+            snippet = {
+                expand = function(args)
+                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                end,
+            },
+            mapping = cmp.mapping.preset.insert({
+                ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
+                ["<C-Space>"] = cmp.mapping.complete(),
+            }),
+            sources = cmp.config.sources({
+                { name = 'nvim_lsp' },
+                { name = 'luasnip' }, -- For luasnip users.
+            }, {
+                { name = 'buffer' },
+            })
+        })
 
-		lspconfig.clangd.setup({
-			cmd = {
-				"clangd",
-				"--fallback-style=webkit",
-			},
-		})
-
-		lspconfig.gdscript.setup({})
-
-		lsp_zero.set_preferences({
-			sign_icons = {
-				error = "",
-				warn = "",
-				hint = "",
-				info = "",
-			},
-		})
-
-		lsp_zero.on_attach(function(client, bufnr)
-			local opts = { buffer = bufnr, remap = false }
-
-			if client.name == "eslint" then
-				vim.cmd.LspStop("eslint")
-				return
-			end
-
-			vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-			vim.keymap.set("n", "<leader>vws", vim.lsp.buf.workspace_symbol, opts)
-			vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-			vim.keymap.set("n", "[d", vim.diagnostic.goto_next, opts)
-			vim.keymap.set("n", "]d", vim.diagnostic.goto_prev, opts)
-			vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-			vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
-			vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-		end)
-
-		lsp_zero.setup()
-
-		vim.diagnostic.config({
-			virtual_text = true,
-		})
-
-		require("nvim-ts-autotag").setup({})
-	end,
+        vim.diagnostic.config({
+            -- update_in_insert = true,
+            float = {
+                focusable = false,
+                style = "minimal",
+                border = "rounded",
+                source = "always",
+                header = "",
+                prefix = "",
+            },
+        })
+    end
 }
+
