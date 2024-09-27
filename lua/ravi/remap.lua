@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 	group = "markdown",
 	pattern = { "*.md" },
 	callback = function()
-		vim.keymap.set("v", "<leader>l", '"2c["2pA]()h')
+		vim.keymap.set("v", "<leader>l", '"2c["2pa]()h')
 		vim.keymap.set("n", "<leader>h", function()
 			vim.o.syntax = "html"
 		end)

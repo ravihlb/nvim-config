@@ -1,36 +1,36 @@
 return {
-	"VonHeikemen/lsp-zero.nvim",
-	dependencies = {
-		-- LSP Support
-		"neovim/nvim-lspconfig",
-		"williamboman/mason.nvim",
-		"williamboman/mason-lspconfig.nvim",
-		-- Autocompletion / nvim-cmp
-		"andersevenrud/cmp-tmux",
-		"davidsierradz/cmp-conventionalcommits",
-		"hrsh7th/cmp-buffer",
-		"rasulomaroff/cmp-bufname",
-		"hrsh7th/cmp-cmdline",
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-nvim-lua",
-		"hrsh7th/cmp-path",
-		"petertriho/cmp-git",
-		"kristijanhusak/vim-dadbod-completion",
-		"onsails/lspkind.nvim",
-		"windwp/nvim-ts-autotag",
+    "VonHeikemen/lsp-zero.nvim",
+    dependencies = {
+        -- LSP Support
+        "neovim/nvim-lspconfig",
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        -- Autocompletion / nvim-cmp
+        "andersevenrud/cmp-tmux",
+        "davidsierradz/cmp-conventionalcommits",
+        "hrsh7th/cmp-buffer",
+        "rasulomaroff/cmp-bufname",
+        "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-nvim-lua",
+        "hrsh7th/cmp-path",
+        "petertriho/cmp-git",
+        "kristijanhusak/vim-dadbod-completion",
+        "onsails/lspkind.nvim",
+        "windwp/nvim-ts-autotag",
         "j-hui/fidget.nvim",
 
-		-- Snippets
-		{
-			"L3MON4D3/LuaSnip",
-			-- follow latest release.
-			version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
-			-- install jsregexp (optional!).
-			build = "make install_jsregexp",
-			dependencies = { "rafamadriz/friendly-snippets" },
-		},
-	},
-	config = function()
+        -- Snippets
+        {
+            "L3MON4D3/LuaSnip",
+            -- follow latest release.
+            version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+            -- install jsregexp (optional!).
+            build = "make install_jsregexp",
+            dependencies = { "rafamadriz/friendly-snippets" },
+        },
+    },
+    config = function()
         local cmp = require('cmp')
         local cmp_lsp = require("cmp_nvim_lsp")
         local capabilities = vim.tbl_deep_extend(
@@ -38,6 +38,16 @@ return {
             {},
             vim.lsp.protocol.make_client_capabilities(),
             cmp_lsp.default_capabilities())
+
+        local lspconfig = require("lspconfig")
+
+        lspconfig.clangd.setup({
+            settings = {
+                ["-style"] = {
+                    ["BasedOnStyle"] = { "GNU" }
+                }
+            }
+        })
 
         require("fidget").setup({})
         require("mason").setup()
@@ -55,7 +65,6 @@ return {
                 end,
 
                 zls = function()
-                    local lspconfig = require("lspconfig")
                     lspconfig.zls.setup({
                         root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json"),
                         settings = {
@@ -68,10 +77,8 @@ return {
                     })
                     vim.g.zig_fmt_parse_errors = 0
                     vim.g.zig_fmt_autosave = 0
-
                 end,
                 ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
                     lspconfig.lua_ls.setup {
                         capabilities = capabilities,
                         settings = {
@@ -122,4 +129,3 @@ return {
         })
     end
 }
-
