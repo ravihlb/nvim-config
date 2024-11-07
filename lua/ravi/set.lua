@@ -13,7 +13,7 @@ vim.opt.smartcase = true
 
 vim.opt.wrap = false
 
-vim.opt.clipboard = "unnamedplus"
+-- vim.opt.clipboard = "unnamedplus"
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = (os.getenv("HOME") or os.getenv("USERPROFILE")) .. "/.vim/undodir"
@@ -43,18 +43,6 @@ vim.g.netrw_browse_split = 4
 
 vim.o.conceallevel = 1
 
--- function GetFilename()
---     local filename = vim.fn.expand("%:t:r")
--- 	if not filename or filename == "." then
--- 		return null
--- 	end
---
--- 	print(filename)
--- 	vim.g.filename = filename
---
--- 	return filename
--- end
-
 function PrintFilename()
     print(vim.fn.expand("%:t:r"))
 end
@@ -62,9 +50,15 @@ end
 local in_wsl = os.getenv('WSL_DISTRO_NAME') ~= nil
 if in_wsl then
     vim.g.clipboard = {
-        name = 'wsl clipboard',
-        copy = { ["+"] = { "clip.exe" }, ["*"] = { "clip.exe" } },
-        -- paste = { ["+"] = { "nvim_paste" }, ["*"] = { "nvim_paste" } },
-        cache_enabled = true
+        name = 'WslClipboard',
+        copy = {
+            ['+'] = 'clip.exe',
+            ['*'] = 'clip.exe',
+        },
+        paste = {
+            ['+'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+            ['*'] = 'powershell.exe -c [Console]::Out.Write($(Get-Clipboard -Raw).tostring().replace("`r", ""))',
+        },
+        cache_enabled = 1,
     }
 end

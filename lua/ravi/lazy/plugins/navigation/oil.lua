@@ -176,6 +176,6 @@ return {
         end
 
         vim.keymap.set("n", "<C-e>", RevealOnSidebar)
-		vim.keymap.set("n", "<leader>o", ":Oil<CR>")
+		vim.keymap.set("n", "<leader>oi", ":Oil<CR>")
 	end,
 }
