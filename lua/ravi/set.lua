@@ -1,4 +1,5 @@
 vim.opt.guicursor = "i:blinkon250,n-v-c:block"
+vim.opt.clipboard = "unnamedplus"
 
 vim.opt.number = true
 vim.opt.relativenumber = true
@@ -41,7 +42,7 @@ vim.g.netrw_winsize = 25
 vim.g.netrw_preview = 0
 vim.g.netrw_browse_split = 4
 
-vim.o.conceallevel = 1
+vim.o.conceallevel = 2
 
 function PrintFilename()
     print(vim.fn.expand("%:t:r"))
