@@ -5,8 +5,13 @@ return {
     config = function()
         local keymap = vim.keymap.set
         local builtin = require("telescope.builtin")
+        require("telescope").setup({
+            defaults = {
+                layout_strategy = 'horizontal',
+                layout_config = { width = 180 },
+            }
+        })
 
-        -- require("telescope").load_extension("git_worktree")
 
         keymap("n", "<C-p>", builtin.git_files, {})
         keymap("n", "<C-f>", function()
@@ -21,7 +26,21 @@ return {
         end)
 
         keymap("n", "<leader>ps", function()
-            builtin.grep_string({ search = vim.fn.input("Grep > ") })
+            builtin.grep_string({
+                search = vim.fn.input("Grep > "),
+                additional_args = {
+                    "-Hn"
+                }
+            })
         end)
-    end
+
+        vim.api.nvim_create_autocmd('LspAttach', {
+            callback = function()
+                keymap('n', '<leader>gr', function()
+                    require('telescope.builtin').lsp_references({ show_line = false })
+                end, {})
+            end
+        })
+    end,
+
 }

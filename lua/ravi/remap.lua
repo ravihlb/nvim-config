@@ -40,6 +40,9 @@ end, { desc = "Format file or selected range" })
 map("n", "<C-j>", ":cnext<CR>")
 map("n", "<C-k>", ":cprev<CR>")
 
+map("n", "[d", function() vim.diagnostic.goto_prev() end)
+map("n", "]d", function() vim.diagnostic.goto_prev() end)
+
 --- Markdown specific mappings
 vim.api.nvim_create_augroup("markdown", { clear = true })
 
@@ -75,11 +78,10 @@ vim.api.nvim_create_autocmd("BufWinLeave", {
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function(args)
+    callback = function()
         map('n', '<leader>r', vim.lsp.buf.rename, {})
         map('n', '<leader>ca', vim.lsp.buf.code_action, {})
 
         map('n', '<leader>gd', vim.lsp.buf.definition, {})
-        map('n', '<leader>gr', require('telescope.builtin').lsp_references, {})
     end
 })

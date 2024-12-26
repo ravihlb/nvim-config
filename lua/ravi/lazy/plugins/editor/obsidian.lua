@@ -7,13 +7,12 @@ return {
         require("obsidian").setup({
             workspaces = {
                 {
+                    name = "work",
+                    path = "~/syncthing/obsidian/work/",
+                },
+                {
                     name = "notebook.md",
-                    path = "~/projects/notebook.md/",
-                    overrides = {
-                        templates = {
-                            folder = "~/projects/notebook.md/5 - Templates/"
-                        }
-                    }
+                    path = "~/syncthing/obsidian/notebook.md",
                 },
             },
             mappings = {
