@@ -3,7 +3,7 @@ return {
 	config = function()
 		local conform = require("conform")
 
-		local es_formatters = { "biome", "eslint_d" }
+		local es_formatters = { "prettierd", "eslint_d" }
 
 		conform.setup({
 			formatters_by_ft = {
@@ -25,9 +25,9 @@ return {
 			format_on_save = function(bufnr)
 				-- Disable with a global or buffer-local variable
 				if not vim.g.enable_autoformat or not vim.b[bufnr].enable_autoformat then
-					return
+					return {}
 				end
-				return {lsp_format = "fallback", timeout_ms = 500}
+				return { lsp_format = "fallback", timeout_ms = 500 }
 			end,
 		})
 
@@ -35,15 +35,19 @@ return {
 			if args.bang then
 				-- FormatOnSaveToggle! will toggle just for current buffer
 				if not vim.b.enable_autoformat then
+					print("setting vim.b.enable_autoformat = true")
 					vim.b.enable_autoformat = true
 				else
+					print("setting vim.b.enable_autoformat = false")
 					vim.b.enable_autoformat = false
 				end
 			end
 
 			if not vim.g.enable_autoformat then
+				print("setting vim.g.enable_autoformat = true")
 				vim.g.enable_autoformat = true
 			else
+				print("setting vim.g.enable_autoformat = false")
 				vim.g.enable_autoformat = false
 			end
 		end, {
