@@ -2,12 +2,18 @@ return {
 	"hrsh7th/nvim-cmp",
 	name = "cmp",
 	dependencies = {
+		{ "ray-x/lsp_signature.nvim", event = "VeryLazy" },
 		"onsails/lspkind.nvim",
 		"saadparwaiz1/cmp_luasnip",
-        {
-          "ray-x/lsp_signature.nvim",
-          event = "VeryLazy",
-        },
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-nvim-lsp-signature-help",
+		"hrsh7th/cmp-nvim-lua",
+		"hrsh7th/cmp-cmdline",
+		"petertriho/cmp-git",
+		{ "davidsierradz/cmp-conventionalcommits", ft = "gitcommit"},
+		"andersevenrud/cmp-tmux",
+		"kristijanhusak/vim-dadbod-completion",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -20,10 +26,12 @@ return {
 			["<Tab>"] = cmp.mapping.confirm({ select = true }),
 		}
 
+        vim.cmd("let g:cmp_debug = v:true")
+
 		cmp.setup({
 			snippet = {
 				expand = function(args)
-					require("cmp_luasnip").lsp_expand(args.body)
+					require("luasnip").lsp_expand(args.body)
 				end,
 			},
 			mapping = cmp.mapping.preset.insert(cmp_mappings),
@@ -35,7 +43,6 @@ return {
 				{ name = "path" },
 				{ name = "buffer" },
 				{ name = "tmux" },
-				{ name = "bufname" },
 			},
 			formatting = {
 				format = lspkind.cmp_format({
@@ -55,17 +62,6 @@ return {
 			experimental = {
 				native_menu = false,
 				ghost_text = true,
-			},
-		})
-
-		cmp.setup.filetype("gitcommit", {
-			sources = {
-				{ name = "luasnip" },
-				{ name = "conventionalcommits" },
-				{ name = "git" },
-				{ name = "tmux" },
-				{ name = "buffer" },
-				{ name = "bufname" },
 			},
 		})
 
@@ -94,6 +90,8 @@ return {
 			}),
 		})
 
+		require("cmp_git").setup()
+
 		vim.g.completion = true
 		function CompletionToggle()
 			cmp.setup({ enabled = not vim.g.completion })
@@ -109,10 +107,6 @@ return {
 				CompletionToggle()
 			end,
 		})
-
-		vim.api.nvim_create_user_command("CompletionToggle", function()
-			CompletionToggle()
-		end, {})
 
 		vim.keymap.set("n", "<leader>ct", ":CompletionToggle<CR>", { silent = true })
 	end,
