@@ -3,7 +3,7 @@ return {
 	config = function()
 		local conform = require("conform")
 
-		local es_formatters = { "prettierd", "eslint_d" }
+		local es_formatters = { "prettier" }
 
 		conform.setup({
 			formatters_by_ft = {
@@ -25,12 +25,13 @@ return {
 			format_on_save = function(bufnr)
 				-- Disable with a global or buffer-local variable
 				if not vim.g.enable_autoformat or not vim.b[bufnr].enable_autoformat then
-					return {}
+					return nil
 				end
 				return { lsp_format = "fallback", timeout_ms = 500 }
 			end,
 		})
 
+		vim.g.enable_autoformat = false
 		vim.api.nvim_create_user_command("FormatOnSaveToggle", function(args)
 			if args.bang then
 				-- FormatOnSaveToggle! will toggle just for current buffer

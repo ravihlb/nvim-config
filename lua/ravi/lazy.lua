@@ -15,9 +15,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { import = "ravi.lazy.plugins" },
+  { import = "ravi.lazy.plugins.colors" },
   { import = "ravi.lazy.plugins.editor" },
   { import = "ravi.lazy.plugins.navigation" },
   { import = "ravi.lazy.plugins.git" },
   { import = "ravi.lazy.plugins.lsp" },
-  { import = "ravi.lazy.plugins.colors" },
 })

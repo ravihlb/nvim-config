@@ -30,58 +30,30 @@ map("n", "<F3>", ":d<CR>")
 --- Plugin maps
 
 map({ "n", "v" }, "<leader>f", function()
-    require("conform").format({
-        lsp_fallback = true,
-        async = false,
-        timeout_ms = 700,
-    })
+	require("conform").format({
+		lsp_fallback = true,
+		async = false,
+		timeout_ms = 700,
+	})
 end, { desc = "Format file or selected range" })
 
 map("n", "<C-j>", ":cnext<CR>")
 map("n", "<C-k>", ":cprev<CR>")
 
-map("n", "[d", function() vim.diagnostic.goto_prev() end)
-map("n", "]d", function() vim.diagnostic.goto_prev() end)
+map("n", "[d", function()
+	vim.diagnostic.goto_prev()
+end)
+map("n", "]d", function()
+	vim.diagnostic.goto_next()
+end)
 
---- Markdown specific mappings
-vim.api.nvim_create_augroup("markdown", { clear = true })
+map("n", "<leader>ox", ":!cursor %<CR>", { silent = true }, { desc = "[O]pen E[x]ternal editor" })
 
--- Link
-vim.api.nvim_create_autocmd("BufEnter", {
-    group = "markdown",
-    pattern = { "*.md" },
-    callback = function()
-        vim.keymap.set("v", "<leader>l", '"2c["2pa]()h')
-        vim.keymap.set("n", "<leader>h", function()
-            vim.o.syntax = "html"
-        end)
-    end,
-})
+vim.api.nvim_create_autocmd("LspAttach", {
+	callback = function()
+		map("n", "<leader>r", vim.lsp.buf.rename, {})
+		map("n", "<leader>ca", vim.lsp.buf.code_action, {})
 
--- Markdown Reset (checkboxes)
-vim.api.nvim_create_autocmd("BufEnter", {
-    group = "markdown",
-    pattern = { "*.md" },
-    callback = function()
-        vim.keymap.set("n", "<leader>mr", function()
-            vim.cmd("%s/\\[[^ ]\\+\\]/[ ]/g")
-        end)
-    end,
-})
-
-vim.api.nvim_create_autocmd("BufWinLeave", {
-    group = "markdown",
-    pattern = { "*.md" },
-    callback = function()
-        vim.keymap.del("v", "<leader>l")
-    end,
-})
-
-vim.api.nvim_create_autocmd('LspAttach', {
-    callback = function()
-        map('n', '<leader>r', vim.lsp.buf.rename, {})
-        map('n', '<leader>ca', vim.lsp.buf.code_action, {})
-
-        map('n', '<leader>gd', vim.lsp.buf.definition, {})
-    end
+		map("n", "gd", vim.lsp.buf.definition, {})
+	end,
 })

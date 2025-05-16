@@ -2,18 +2,8 @@ return {
 	"hrsh7th/nvim-cmp",
 	name = "cmp",
 	dependencies = {
-		{ "ray-x/lsp_signature.nvim", event = "VeryLazy" },
 		"onsails/lspkind.nvim",
-		"saadparwaiz1/cmp_luasnip",
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-nvim-lsp-signature-help",
-		"hrsh7th/cmp-nvim-lua",
-		"hrsh7th/cmp-cmdline",
-		"petertriho/cmp-git",
-		{ "davidsierradz/cmp-conventionalcommits", ft = "gitcommit"},
-		"andersevenrud/cmp-tmux",
-		"kristijanhusak/vim-dadbod-completion",
+        "L3MON4D3/LuaSnip",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -23,10 +13,8 @@ return {
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
 			["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-			["<Tab>"] = cmp.mapping.confirm({ select = true }),
+			["<S-Tab>"] = cmp.mapping.confirm({ select = true }),
 		}
-
-        vim.cmd("let g:cmp_debug = v:true")
 
 		cmp.setup({
 			snippet = {
@@ -35,19 +23,23 @@ return {
 				end,
 			},
 			mapping = cmp.mapping.preset.insert(cmp_mappings),
-			sources = {
-				{ name = "nvim_lsp" },
-				{ name = "nvim_lsp_signature_help" },
-				{ name = "luasnip" },
-				{ name = "nvim_lua" },
-				{ name = "path" },
-				{ name = "buffer" },
-				{ name = "tmux" },
-			},
+			sources = cmp.config.sources({
+				{ name = "copilot", priority = 10 },
+				{ name = "nvim_lsp", priority = 9 },
+				{ name = "lazydev", priority = 8 },
+				{ name = "nvim_lsp_signature_help", priority = 7 },
+				{ name = "luasnip", priority = 6 },
+				{ name = "nvim_lua", priority = 5 },
+				{ name = "path", priority = 4 },
+				{ name = "buffer", priority = 3 },
+				{ name = "tmux", priority = 2 },
+				{ name = "cmdline", priority = 1 },
+			}),
 			formatting = {
 				format = lspkind.cmp_format({
 					mode = "symbol_text",
 					menu = {
+						copilot = "[Copilot]",
 						buffer = "[Buf]",
 						nvim_lsp = "[LSP]",
 						luasnip = "[LuaSnip]",
@@ -61,7 +53,7 @@ return {
 			},
 			experimental = {
 				native_menu = false,
-				ghost_text = true,
+				ghost_text = false,
 			},
 		})
 
@@ -90,7 +82,7 @@ return {
 			}),
 		})
 
-		require("cmp_git").setup()
+		require("cmp_git").setup({})
 
 		vim.g.completion = true
 		function CompletionToggle()
@@ -110,4 +102,23 @@ return {
 
 		vim.keymap.set("n", "<leader>ct", ":CompletionToggle<CR>", { silent = true })
 	end,
+	wants = { "LuaSnip" },
+	requires = {
+		{ "ray-x/lsp_signature.nvim", event = "VeryLazy" },
+		"saadparwaiz1/cmp_luasnip",
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-nvim-lsp-signature-help",
+		"hrsh7th/cmp-nvim-lua",
+		"hrsh7th/cmp-cmdline",
+		"petertriho/cmp-git",
+		{ "davidsierradz/cmp-conventionalcommits", ft = "gitcommit" },
+		"andersevenrud/cmp-tmux",
+		{
+			"zbirenbaum/copilot-cmp",
+			config = function()
+				require("copilot_cmp").setup()
+			end,
+		},
+	},
 }
