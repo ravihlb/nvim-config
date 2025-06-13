@@ -78,6 +78,7 @@ return {
 				["gx"] = "actions.open_external",
 				["g."] = "actions.toggle_hidden",
 				["g\\"] = "actions.toggle_trash",
+				["<M-q>"] = "actions.send_to_qflist",
 			},
 			-- Configuration for the floating keymaps help window
 			keymaps_help = {
@@ -164,18 +165,18 @@ return {
 			},
 		})
 
-        function RevealOnSidebar()
-            local original_splitright = vim.o.splitright
-            vim.o.splitright = false
+		function RevealOnSidebar()
+			local original_splitright = vim.o.splitright
+			vim.o.splitright = false
 
-            vim.api.nvim_exec2("vsplit", {})
-            vim.api.nvim_exec2("Oil", {})
-            vim.api.nvim_exec2("vert resize 30", {})
+			vim.api.nvim_exec2("vsplit", {})
+			vim.api.nvim_exec2("Oil", {})
+			vim.api.nvim_exec2("vert resize 30", {})
 
-            vim.o.splitright = original_splitright
-        end
+			vim.o.splitright = original_splitright
+		end
 
-        vim.keymap.set("n", "<C-e>", RevealOnSidebar)
+		vim.keymap.set("n", "<C-e>", RevealOnSidebar)
 		vim.keymap.set("n", "<leader>oi", ":Oil<CR>")
 	end,
 }

@@ -14,6 +14,10 @@ return {
                     name = "notebook.md",
                     path = "~/syncthing/obsidian/notebook.md",
                 },
+                {
+                    name = "code",
+                    path = "~/syncthing/obsidian/code",
+                },
             },
             mappings = {
                 ["gf"] = {

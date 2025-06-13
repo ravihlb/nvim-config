@@ -1,7 +1,7 @@
 return {
 	"zbirenbaum/copilot.lua",
 	cmd = "Copilot",
-	event = "InsertEnter",
+	event = "BufEnter",
 	config = function()
 		require("copilot").setup({
 			panel = {
@@ -26,7 +26,7 @@ return {
 				debounce = 75,
 				trigger_on_accept = false,
 				keymap = {
-					accept = "<Tab>",
+					accept = "<S-Tab>",
 					accept_word = false,
 					accept_line = false,
 					next = "<M-]>",

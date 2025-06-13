@@ -47,7 +47,7 @@ map("n", "]d", function()
 	vim.diagnostic.goto_next()
 end)
 
-map("n", "<leader>ox", ":!cursor %<CR>", { silent = true }, { desc = "[O]pen E[x]ternal editor" })
+map("n", "<leader>ox", ":silent !cursor . && cursor -g %<CR>", { silent = true, desc = "[O]pen E[x]ternal editor" })
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function()

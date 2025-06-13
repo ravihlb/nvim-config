@@ -3,7 +3,8 @@ return {
 	name = "cmp",
 	dependencies = {
 		"onsails/lspkind.nvim",
-        "L3MON4D3/LuaSnip",
+		"L3MON4D3/LuaSnip",
+		"saadparwaiz1/cmp_luasnip",
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -13,10 +14,13 @@ return {
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-p>"] = cmp.mapping.select_prev_item(cmp_select),
 			["<C-n>"] = cmp.mapping.select_next_item(cmp_select),
-			["<S-Tab>"] = cmp.mapping.confirm({ select = true }),
+			["<Tab>"] = cmp.mapping.confirm({ select = true }),
 		}
 
 		cmp.setup({
+			completion = {
+				autocomplete = { "InsertEnter" },
+			},
 			snippet = {
 				expand = function(args)
 					require("luasnip").lsp_expand(args.body)
@@ -24,11 +28,11 @@ return {
 			},
 			mapping = cmp.mapping.preset.insert(cmp_mappings),
 			sources = cmp.config.sources({
-				{ name = "copilot", priority = 10 },
-				{ name = "nvim_lsp", priority = 9 },
-				{ name = "lazydev", priority = 8 },
-				{ name = "nvim_lsp_signature_help", priority = 7 },
-				{ name = "luasnip", priority = 6 },
+				{ name = "luasnip", priority = 10 },
+				{ name = "copilot", priority = 9 },
+				{ name = "nvim_lsp", priority = 8 },
+				{ name = "lazydev", priority = 7 },
+				-- { name = "nvim_lsp_signature_help", priority = 6 },
 				{ name = "nvim_lua", priority = 5 },
 				{ name = "path", priority = 4 },
 				{ name = "buffer", priority = 3 },
@@ -102,10 +106,8 @@ return {
 
 		vim.keymap.set("n", "<leader>ct", ":CompletionToggle<CR>", { silent = true })
 	end,
-	wants = { "LuaSnip" },
 	requires = {
 		{ "ray-x/lsp_signature.nvim", event = "VeryLazy" },
-		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-buffer",
 		"hrsh7th/cmp-nvim-lsp",
 		"hrsh7th/cmp-nvim-lsp-signature-help",
