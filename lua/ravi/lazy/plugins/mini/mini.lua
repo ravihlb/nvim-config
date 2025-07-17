@@ -1,5 +1,8 @@
 return {
     { "echasnovski/mini.ai", version = "*", opts = {} },
+    { "echasnovski/mini.statusline", version = "*", opts = {} },
+    { "echasnovski/mini.sessions", version = "*", opts = {} },
+    { "echasnovski/mini.notify", version = "*", opts = {} },
     {
         "echasnovski/mini.files",
         version = "*",
@@ -24,8 +27,5 @@ return {
             },
         },
     },
-    { "echasnovski/mini.statusline", version = "*", opts = {} },
-    { "echasnovski/mini.sessions", version = "*", opts = {} },
-    { "echasnovski/mini.notify", version = "*", opts = {} },
     event = "VeryLazy",
 }
