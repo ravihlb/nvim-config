@@ -44,7 +44,7 @@ return {
             mapping = cmp.mapping.preset.insert(cmp_mappings),
             sources = cmp.config.sources({
                 { name = "luasnip", priority = 10 },
-                -- { name = "copilot", priority = 9 },
+                { name = "copilot", priority = 9 },
                 { name = "nvim_lsp", priority = 8 },
                 { name = "lazydev", priority = 7 },
                 -- { name = "nvim_lsp_signature_help", priority = 6 },
