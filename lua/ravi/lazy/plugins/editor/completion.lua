@@ -1,14 +1,14 @@
 return {
     "hrsh7th/nvim-cmp",
     name = "cmp",
-    requires = {
-        {
-            "zbirenbaum/copilot-cmp",
-            config = function()
-                require("copilot_cmp").setup()
-            end,
-        },
-    },
+    -- requires = {
+    --     {
+    --         "zbirenbaum/copilot-cmp",
+    --         config = function()
+    --             require("copilot_cmp").setup()
+    --         end,
+    --     },
+    -- },
     dependencies = {
         "onsails/lspkind.nvim",
         "L3MON4D3/LuaSnip",
@@ -35,6 +35,7 @@ return {
         }
 
         cmp.setup({
+            completion = { completeopt = "menu,menuone,noinsert" },
             snippet = {
                 expand = function(args)
                     require("luasnip").lsp_expand(args.body)
@@ -43,7 +44,7 @@ return {
             mapping = cmp.mapping.preset.insert(cmp_mappings),
             sources = cmp.config.sources({
                 { name = "luasnip", priority = 10 },
-                { name = "copilot", priority = 9 },
+                -- { name = "copilot", priority = 9 },
                 { name = "nvim_lsp", priority = 8 },
                 { name = "lazydev", priority = 7 },
                 -- { name = "nvim_lsp_signature_help", priority = 6 },
