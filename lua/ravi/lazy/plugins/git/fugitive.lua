@@ -32,7 +32,7 @@ return {
                 -- Fill in "Git branch " on cmdline
                 vim.keymap.set("n", "gb<leader>", ":Git branch ", opts)
                 -- Fill in "Git switch " on cmdline
-                vim.keymap.set("n", "gs<leader>", ":Git switch --autostash", opts)
+                vim.keymap.set("n", "gs<leader>", ":Git switch ", opts)
 
                 -- Publish new branch and push to it
                 vim.keymap.set("n", "<leader>gip", ":!git push -u origin $(git rev-parse --abbrev-ref HEAD)<CR>")
