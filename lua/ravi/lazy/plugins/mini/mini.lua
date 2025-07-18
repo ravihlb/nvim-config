@@ -9,7 +9,7 @@ return {
         opts = {},
         keys = {
             {
-                "<leader>me",
+                "<leader>.",
                 function()
                     local MiniFiles = require("mini.files")
                     local _ = MiniFiles.close() or MiniFiles.open(vim.api.nvim_buf_get_name(0), false)
