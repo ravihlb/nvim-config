@@ -1,6 +1,9 @@
 return {
     "saghen/blink.cmp",
-    dependencies = "rafamadriz/friendly-snippets",
+    dependencies = {
+        "rafamadriz/friendly-snippets",
+        "mgalliou/blink-cmp-tmux",
+    },
     version = "v0.*",
     opts = {
         keymap = {
@@ -17,37 +20,38 @@ return {
             nerd_font_variant = "mono",
         },
         sources = {
-            default = { "lsp", "path", "snippets", "buffer" },
-            per_filetype = {
-                gitcommit = { "buffer", "path" },
-            },
+            default = { "lsp", "snippets", "buffer", "path", "tmux" },
             providers = {
                 buffer = {
-                    name = "Buffer",
+                    name = "buffer",
                     module = "blink.cmp.sources.buffer",
                 },
                 path = {
-                    name = "Path",
+                    name = "path",
                     module = "blink.cmp.sources.path",
                     score_offset = 3,
                 },
                 snippets = {
-                    name = "Snippets",
+                    name = "snippets",
                     module = "blink.cmp.sources.snippets",
                     score_offset = -3,
                 },
                 cmdline = {
-                    name = "Cmdline",
                     module = "blink.cmp.sources.cmdline",
                 },
-            },
-        },
-        cmdline = {
-            enabled = true,
-            sources = {
-                [":"] = { "path", "cmdline" },
-                ["/"] = { "buffer" },
-                ["?"] = { "buffer" },
+                tmux = {
+                    module = "blink-cmp-tmux",
+                    name = "tmux",
+                    -- default options
+                    opts = {
+                        all_panes = false,
+                        capture_history = false,
+                        -- only suggest completions from `tmux` if the `trigger_chars` are
+                        -- used
+                        triggered_only = false,
+                        trigger_chars = { "." },
+                    },
+                },
             },
         },
         completion = {
