@@ -1,17 +1,15 @@
 return {
-	{
-		"nvim-lua/plenary.nvim",
-		name = "plenary",
-	},
+    {
+        "nvim-lua/plenary.nvim",
+        name = "plenary",
+    },
 
-	{
-		"folke/trouble.nvim",
-		config = function()
-			--- TODO
-			require("trouble").setup({
-				icons = false,
-			})
-		end,
-	},
-
+    {
+        "folke/trouble.nvim",
+        config = function()
+            require("trouble").setup({
+                icons = false,
+            })
+        end,
+    },
 }
