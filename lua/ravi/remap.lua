@@ -29,31 +29,22 @@ map("n", "<F3>", ":d<CR>")
 
 --- Plugin maps
 
-map({ "n", "v" }, "<leader>f", function()
-	require("conform").format({
-		lsp_fallback = true,
-		async = false,
-		timeout_ms = 700,
-	})
+map({ "n", "v" }, "<leader>fo", function()
+    require("conform").format({
+        lsp_fallback = true,
+        async = false,
+        timeout_ms = 700,
+    })
 end, { desc = "Format file or selected range" })
 
 map("n", "<C-j>", ":cnext<CR>")
 map("n", "<C-k>", ":cprev<CR>")
 
 map("n", "[d", function()
-	vim.diagnostic.goto_prev()
+    vim.diagnostic.goto_prev()
 end)
 map("n", "]d", function()
-	vim.diagnostic.goto_next()
+    vim.diagnostic.goto_next()
 end)
 
 map("n", "<leader>ox", ":silent !cursor . && cursor -g '%'<CR>", { silent = true, desc = "[O]pen E[x]ternal editor" })
-
-vim.api.nvim_create_autocmd("LspAttach", {
-	callback = function()
-		map("n", "<leader>r", vim.lsp.buf.rename, {})
-		map("n", "<leader>ca", vim.lsp.buf.code_action, {})
-
-		map("n", "gd", vim.lsp.buf.definition, {})
-	end,
-})
