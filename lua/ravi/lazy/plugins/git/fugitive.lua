@@ -17,28 +17,27 @@ return {
                 local bufnr = vim.api.nvim_get_current_buf()
                 local opts = { buffer = bufnr, remap = false }
 
-                vim.keymap.set("n", "<leader>gp", function()
+                keymap("n", "<leader>gp", function()
                     vim.cmd.Git("push")
                 end, opts)
 
-                vim.keymap.set("n", "<leader>gl", function()
+                keymap("n", "<leader>gpf", function()
+                    vim.cmd.Git("push -f")
+                end, opts)
+
+                keymap("n", "<leader>gl", function()
                     vim.cmd.Git({ "pull --rebase --autostash" })
                 end, opts)
 
-                -- NOTE: It allows me to easily set the branch i am pushing and any tracking
-                -- needed if i did not set the branch up correctly
-                vim.keymap.set("n", "<leader>t", ":Git push -u origin", opts)
-
-                -- Fill in "Git branch " on cmdline
-                vim.keymap.set("n", "gb<leader>", ":Git branch ", opts)
-                -- Fill in "Git switch " on cmdline
-                vim.keymap.set("n", "gs<leader>", ":Git switch ", opts)
-
-                -- Fill in "Git push " on cmdline
-                vim.keymap.set("n", "gp<leader>", ":Git push ", opts)
+                -- Prefill cmdline with "Git branch "
+                keymap("n", "gb<leader>", ":Git branch ", opts)
+                -- Prefill cmdline with "Git switch "
+                keymap("n", "gs<leader>", ":Git switch ", opts)
+                -- Prefill cmdline with "Git push "
+                keymap("n", "gp<leader>", ":Git push ", opts)
 
                 -- Publish new branch and push to it
-                vim.keymap.set("n", "<leader>gip", ":!git push -u origin $(git rev-parse --abbrev-ref HEAD)<CR>")
+                keymap("n", "<leader>gip", ":!git push -u origin $(git rev-parse --abbrev-ref HEAD)<CR>")
 
                 keymap("n", "gu", "<cmd>diffget //2<cr>")
                 keymap("n", "gh", "<cmd>diffget //3<cr>")
