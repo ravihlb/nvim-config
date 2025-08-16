@@ -61,8 +61,13 @@ return {
                 },
             },
             menu = {
+                auto_show = false,
                 draw = {
-                    treesitter = { "lsp" },
+                    columns = {
+                        { "label", "label_description", gap = 1 },
+                        { "kind_icon", "kind" },
+                    },
+                    -- treesitter = { "lsp" },
                 },
             },
             documentation = {

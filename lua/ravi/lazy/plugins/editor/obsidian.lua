@@ -18,6 +18,10 @@ return {
                     name = "code",
                     path = "~/syncthing/obsidian/code",
                 },
+                {
+                    name = "kairos",
+                    path = "~/syncthing/obsidian/kairos",
+                },
             },
             mappings = {
                 ["gf"] = {
@@ -37,14 +41,14 @@ return {
                     action = function()
                         return vim.api.nvim_exec2("ObsidianTemplate " .. default_template_name, {})
                     end,
-                    opts = { buffer = true }
+                    opts = { buffer = true },
                 },
                 ["<leader>op"] = {
                     action = function()
                         return vim.api.nvim_exec2("ObsidianOpen", {})
                     end,
-                    opts = { buffer = true }
-                }
+                    opts = { buffer = true },
+                },
             },
             disable_frontmatter = true,
             ui = {
@@ -77,8 +81,7 @@ return {
                     ObsidianBlockID = { italic = true, fg = "#89ddff" },
                     ObsidianHighlightText = { bg = "#75662e" },
                 },
-
-            }
+            },
         })
     end,
 }

@@ -26,7 +26,6 @@ return {
                 foldcolumn = "0",
                 spell = false,
                 list = false,
-                conceallevel = 3,
                 concealcursor = "nvic",
             },
             -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
