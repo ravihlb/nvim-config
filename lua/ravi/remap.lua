@@ -37,4 +37,11 @@ map("n", "]d", function()
     vim.diagnostic.goto_next()
 end)
 
-map("n", "<leader>ox", ":silent !cursor . && cursor -g %<CR>", { silent = true, desc = "[O]pen E[x]ternal editor" })
+map("n", "<leader>ox", ":silent !cursor . && cursor -g '%'<CR>", { silent = true, desc = "[O]pen E[x]ternal editor" })
+
+map(
+    "n",
+    "<leader>wo",
+    ":silent %bd|e#<CR>",
+    { silent = true, desc = "Delete every buffer except this [w]indow [o]nly" }
+)

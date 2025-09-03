@@ -4,7 +4,7 @@ return {
         "rafamadriz/friendly-snippets",
         "mgalliou/blink-cmp-tmux",
     },
-    version = "v0.*",
+    version = "v1.*",
     opts = {
         keymap = {
             preset = "default",
