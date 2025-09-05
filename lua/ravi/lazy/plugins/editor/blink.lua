@@ -20,7 +20,7 @@ return {
             nerd_font_variant = "mono",
         },
         sources = {
-            default = { "lsp", "snippets", "buffer", "path", "tmux" },
+            default = { "snippets", "lsp", "buffer", "path" },
             providers = {
                 buffer = {
                     name = "buffer",
@@ -39,19 +39,19 @@ return {
                 cmdline = {
                     module = "blink.cmp.sources.cmdline",
                 },
-                tmux = {
-                    module = "blink-cmp-tmux",
-                    name = "tmux",
-                    -- default options
-                    opts = {
-                        all_panes = false,
-                        capture_history = false,
-                        -- only suggest completions from `tmux` if the `trigger_chars` are
-                        -- used
-                        triggered_only = false,
-                        trigger_chars = { "." },
-                    },
-                },
+                -- tmux = {
+                --     module = "blink-cmp-tmux",
+                --     name = "tmux",
+                --     -- default options
+                --     opts = {
+                --         all_panes = true,
+                --         capture_history = false,
+                --         -- only suggest completions from `tmux` if the `trigger_chars` are
+                --         -- used
+                --         -- triggered_only = false,
+                --         -- trigger_chars = { "." },
+                --     },
+                -- },
             },
         },
         completion = {
@@ -61,7 +61,7 @@ return {
                 },
             },
             menu = {
-                auto_show = false,
+                auto_show = true,
                 draw = {
                     columns = {
                         { "label", "label_description", gap = 1 },

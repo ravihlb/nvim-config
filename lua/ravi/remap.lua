@@ -6,8 +6,8 @@ map("n", "<C-S-v>", '"+p')
 
 map("n", "s", '"_s')
 
-map("n", "<Leader>+", ":resize +5<CR>", { silent = true })
-map("n", "<Leader>-", ":resize -5<CR>", { silent = true })
+map("n", "<leader>+", ":resize +5<CR>", { silent = true })
+map("n", "<leader>-", ":resize -5<CR>", { silent = true })
 
 map("n", "+", ":vert resize +5<CR>", { noremap = true, silent = true })
 map("n", "-", ":vert resize -5<CR>", { noremap = true, silent = true })
@@ -45,3 +45,5 @@ map(
     ":silent %bd|e#<CR>",
     { silent = true, desc = "Delete every buffer except this [w]indow [o]nly" }
 )
+
+map("n", "<leader>mk", ":mksession! session.vim<CR>", { desc = "[mk]session" })

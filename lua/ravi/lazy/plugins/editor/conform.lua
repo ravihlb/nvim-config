@@ -3,7 +3,7 @@ return {
     config = function()
         local conform = require("conform")
 
-        local es_formatters = { "prettierd" }
+        local es_formatters = { "biome", "biome-check" }
 
         conform.setup({
             formatters_by_ft = {
@@ -21,6 +21,11 @@ return {
                 python = { "isort", "black" },
                 bash = { "shfmt" },
                 vue = { "stylelint" },
+            },
+            formatters = {
+                biome = {
+                    args = { "format", "--stdin-file-path", "$FILENAME" },
+                },
             },
             format_on_save = function(bufnr)
                 -- Disable with a global or buffer-local variable
