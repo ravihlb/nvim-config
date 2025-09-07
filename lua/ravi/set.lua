@@ -1,3 +1,6 @@
+-- vim.opt.winborder = "rounded"
+vim.opt.winblend = 10
+
 vim.opt.guicursor = "i:blinkon250,n-v-c:block"
 vim.opt.clipboard = "unnamedplus"
 
@@ -67,3 +70,5 @@ if in_wsl then
         cache_enabled = 1,
     }
 end
+
+vim.cmd("autocmd TermOpen * setlocal winhighlight=Normal:NormalDark")
