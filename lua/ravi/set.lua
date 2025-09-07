@@ -34,6 +34,7 @@ vim.opt.updatetime = 50
 vim.opt.redrawtime = 10000
 
 vim.opt.colorcolumn = "80"
+vim.opt.textwidth = 120
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true

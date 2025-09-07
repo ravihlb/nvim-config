@@ -3,7 +3,7 @@ return {
     config = function()
         local conform = require("conform")
 
-        local es_formatters = { "biome", "biome-check" }
+        local es_formatters = { "biome" }
 
         conform.setup({
             formatters_by_ft = {
@@ -60,6 +60,14 @@ return {
             bang = true,
         })
     end,
+
+    vim.api.nvim_create_user_command("Format", function(args)
+        require("conform").format({
+            lsp_fallback = true,
+            async = false,
+            timeout_ms = 700,
+        })
+    end, {}),
 
     vim.keymap.set({ "n", "v" }, "<leader>fo", function()
         require("conform").format({
