@@ -16,8 +16,10 @@ return {
             ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
         },
         appearance = {
-            use_nvim_cmp_as_default = true,
             nerd_font_variant = "mono",
+        },
+        signature = {
+            enabled = true,
         },
         sources = {
             default = { "snippets", "lsp", "buffer", "path" },
@@ -55,6 +57,11 @@ return {
             },
         },
         completion = {
+            list = {
+                selection = {
+                    auto_insert = false,
+                },
+            },
             accept = {
                 auto_brackets = {
                     enabled = true,
@@ -63,20 +70,19 @@ return {
             menu = {
                 auto_show = true,
                 draw = {
+                    align_to = "label",
+                    padding = 1,
                     columns = {
-                        { "label", "label_description", gap = 1 },
-                        { "kind_icon", "kind" },
+                        { "label", "label_description", gap = 1.5 },
+                        { "kind_icon", "kind", gap = 1 },
                     },
-                    -- treesitter = { "lsp" },
+                    treesitter = { "lsp" },
                 },
             },
             documentation = {
                 auto_show = true,
-                auto_show_delay_ms = 200,
+                auto_show_delay_ms = 50,
             },
-        },
-        signature = {
-            enabled = true,
         },
     },
     opts_extend = { "sources.default" },

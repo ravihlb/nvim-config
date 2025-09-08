@@ -1,5 +1,5 @@
--- vim.opt.winborder = "rounded"
-vim.opt.winblend = 10
+vim.opt.winborder = "rounded"
+vim.opt.winblend = 5
 
 vim.opt.guicursor = "i:blinkon250,n-v-c:block"
 vim.opt.clipboard = "unnamedplus"

@@ -9,7 +9,6 @@ return {
         config = function()
             -- Get capabilities from blink.cmp
             local capabilities = require("blink.cmp").get_lsp_capabilities()
-
             local lspconfig = require("lspconfig")
 
             -- Clangd setup
@@ -83,7 +82,12 @@ return {
                                 client.server_capabilities.documentFormattingProvider = false
                                 client.server_capabilities.documentRangeFormattingProvider = false
                             end,
-                            root_dir = lspconfig.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+                            root_dir = lspconfig.util.root_pattern(
+                                "package.json",
+                                "tsconfig.json",
+                                "jsconfig.json",
+                                ".git"
+                            ),
                         })
                     end,
 
@@ -92,18 +96,18 @@ return {
                         lspconfig.biome.setup({
                             capabilities = capabilities,
                             cmd = { "biome", "lsp-proxy" },
-                            filetypes = { 
-                                "javascript", 
-                                "javascriptreact", 
-                                "json", 
-                                "jsonc", 
-                                "typescript", 
-                                "typescriptreact" 
+                            filetypes = {
+                                "javascript",
+                                "javascriptreact",
+                                "json",
+                                "jsonc",
+                                "typescript",
+                                "typescriptreact",
                             },
                             -- Look for biome.json first, then fallback to projects with prettier/eslint configs
                             root_dir = lspconfig.util.root_pattern(
                                 "biome.json",
-                                "biome.jsonc", 
+                                "biome.jsonc",
                                 ".prettierrc",
                                 ".prettierrc.json",
                                 ".prettierrc.js",
@@ -119,22 +123,22 @@ return {
                                 if root_dir then
                                     local biome_config = vim.fn.findfile("biome.json", root_dir)
                                     local biome_jsonc = vim.fn.findfile("biome.jsonc", root_dir)
-                                    
+
                                     if biome_config == "" and biome_jsonc == "" then
                                         -- Check for prettier/eslint configs and suggest migration
-                                        local prettier_config = vim.fn.findfile(".prettierrc", root_dir) ~= "" or
-                                                              vim.fn.findfile(".prettierrc.json", root_dir) ~= "" or
-                                                              vim.fn.findfile(".prettierrc.js", root_dir) ~= ""
-                                        
-                                        local eslint_config = vim.fn.findfile(".eslintrc.json", root_dir) ~= "" or
-                                                             vim.fn.findfile(".eslintrc.js", root_dir) ~= "" or
-                                                             vim.fn.findfile("eslint.config.js", root_dir) ~= ""
-                                        
+                                        local prettier_config = vim.fn.findfile(".prettierrc", root_dir) ~= ""
+                                            or vim.fn.findfile(".prettierrc.json", root_dir) ~= ""
+                                            or vim.fn.findfile(".prettierrc.js", root_dir) ~= ""
+
+                                        local eslint_config = vim.fn.findfile(".eslintrc.json", root_dir) ~= ""
+                                            or vim.fn.findfile(".eslintrc.js", root_dir) ~= ""
+                                            or vim.fn.findfile("eslint.config.js", root_dir) ~= ""
+
                                         if prettier_config or eslint_config then
                                             vim.defer_fn(function()
                                                 vim.notify(
-                                                    "Biome detected existing Prettier/ESLint configs. " ..
-                                                    "Run ':BiomeMigrate' to convert them to biome.json",
+                                                    "Biome detected existing Prettier/ESLint configs. "
+                                                        .. "Run ':BiomeMigrate' to convert them to biome.json",
                                                     vim.log.levels.INFO,
                                                     { title = "Biome Migration" }
                                                 )
@@ -165,21 +169,21 @@ return {
             vim.api.nvim_create_user_command("BiomeMigrate", function(opts)
                 local cwd = vim.fn.getcwd()
                 local cmd_args = opts.args ~= "" and opts.args or "prettier eslint"
-                
+
                 -- Split args to handle both prettier and eslint
                 local migrate_prettier = cmd_args:match("prettier") ~= nil
                 local migrate_eslint = cmd_args:match("eslint") ~= nil
-                
+
                 if migrate_prettier then
                     vim.fn.system("cd " .. cwd .. " && pnpm @biomejs/biome migrate prettier --write")
                     print("Migrated Prettier config to biome.json")
                 end
-                
+
                 if migrate_eslint then
                     vim.fn.system("cd " .. cwd .. " && pnpm @biomejs/biome migrate eslint --write")
                     print("Migrated ESLint config to biome.json")
                 end
-                
+
                 if not migrate_prettier and not migrate_eslint then
                     print("Usage: :BiomeMigrate [prettier] [eslint]")
                 end
@@ -188,7 +192,7 @@ return {
                 desc = "Migrate Prettier/ESLint configs to biome.json",
                 complete = function()
                     return { "prettier", "eslint", "prettier eslint" }
-                end
+                end,
             })
 
             -- Optional: Set up LSP-related keymaps
