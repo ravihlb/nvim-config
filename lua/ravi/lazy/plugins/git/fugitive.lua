@@ -4,6 +4,7 @@ return {
         local keymap = vim.keymap.set
 
         keymap("n", "<leader>gs", vim.cmd.Git)
+        keymap("n", "<leader>ga", ":Git stage % | echo 'Staged ' . expand('%:t')<CR>")
 
         local Fugitive = vim.api.nvim_create_augroup("Fugitive", {})
         vim.api.nvim_create_autocmd("BufWinEnter", {
@@ -27,6 +28,10 @@ return {
 
                 keymap("n", "<leader>gl", function()
                     vim.cmd.Git({ "pull --rebase --autostash" })
+                end, opts)
+
+                keymap("n", "<leader>gm", function()
+                    vim.cmd.Git("mergetool")
                 end, opts)
 
                 -- Prefill cmdline with "Git branch "
