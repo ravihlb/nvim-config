@@ -15,7 +15,7 @@ return {
                 css = es_formatters,
                 html = es_formatters,
                 yaml = es_formatters,
-                markdown = es_formatters,
+                markdown = {},
                 lua = { "stylua" },
                 gdscript = { "gdformat" },
                 python = { "isort", "black" },

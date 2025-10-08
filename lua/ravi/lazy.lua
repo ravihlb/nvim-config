@@ -22,4 +22,7 @@ require("lazy").setup({
     { import = "ravi.lazy.plugins.lsp" },
     { import = "ravi.lazy.plugins.mini" },
     { import = "ravi.lazy.plugins.markdown" },
+    ui = {
+        border = "rounded",
+    },
 })
