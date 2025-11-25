@@ -21,6 +21,7 @@ return {
                 python = { "isort", "black" },
                 bash = { "shfmt" },
                 vue = { "stylelint" },
+                sql = { "sqlfmt" },
             },
             formatters = {
                 biome = {

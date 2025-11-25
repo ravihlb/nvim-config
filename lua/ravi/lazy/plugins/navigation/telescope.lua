@@ -8,7 +8,13 @@ return {
         require("telescope").setup({
             defaults = {
                 layout_strategy = "horizontal",
+                initial_mode = "insert",
                 layout_config = { width = 170 },
+                mappings = {
+                    i = {
+                        ["<C-c>"] = { "<esc>", type = "command" },
+                    },
+                },
             },
         })
 
