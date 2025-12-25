@@ -11,7 +11,7 @@ return {
                 typescript = es_formatters,
                 javascriptreact = es_formatters,
                 typescriptreact = es_formatters,
-                svelte = { "lsp" },
+                -- svelte = { },
                 css = es_formatters,
                 html = { "prettier" },
                 yaml = es_formatters,

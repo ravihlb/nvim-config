@@ -117,6 +117,12 @@ return {
                             ),
                             single_file_support = false,
                             on_attach = function(client, bufnr)
+                                -- Detach from Svelte files
+                                if vim.bo[bufnr].filetype == "svelte" then
+                                    vim.lsp.buf_detach(bufnr)
+                                    return
+                                end
+
                                 -- Check if project has biome.json, if not suggest migration
                                 local root_dir = client.config.root_dir
                                 if root_dir then
