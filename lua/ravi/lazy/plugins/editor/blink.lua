@@ -12,8 +12,6 @@ return {
     version = "v2.*",
     build = { "cargo build --release" },
     opts = {
-        friendly_snippets = true,
-        global_snippets = { "all" },
         fuzzy = { implementation = "prefer_rust" },
         keymap = {
             preset = "default",
