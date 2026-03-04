@@ -8,22 +8,10 @@ return {
         },
         config = function()
             -- Get capabilities from blink.cmp
-            local capabilities = require("blink.cmp").get_lsp_capabilities()
-            local lspconfig = require("lspconfig")
+            local lspconfig = vim.lsp.config
 
-            -- Clangd setup
-            lspconfig.clangd.setup({
-                capabilities = capabilities,
-                settings = {
-                    ["-style"] = {
-                        ["BasedOnStyle"] = { "GNU" },
-                    },
-                },
-            })
-
-            lspconfig.gdscript.setup({
-                capabilities = capabilities,
-                cmd = vim.lsp.rpc.connect("192.168.112.1", 6005),
+            vim.lsp.config("*", {
+                capabilities = require("blink.cmp").get_lsp_capabilities()
             })
 
             -- Mason setup
@@ -33,19 +21,10 @@ return {
                     "lua_ls",
                     "ts_ls",
                 },
-                automatic_installation = {},
                 handlers = {
-                    -- Default handler for all servers
-                    function(server_name)
-                        require("lspconfig")[server_name].setup({
-                            capabilities = capabilities,
-                        })
-                    end,
-
                     -- Lua Language Server specific setup
                     ["lua_ls"] = function()
                         lspconfig.lua_ls.setup({
-                            capabilities = capabilities,
                             settings = {
                                 Lua = {
                                     runtime = { version = "Lua 5.1" },
@@ -59,8 +38,7 @@ return {
 
                     -- Svelte Language Server specific setup
                     ["svelte"] = function()
-                        require("lspconfig")["svelte"].setup({
-                            capabilities = capabilities,
+                        lspconfig.svelte.setup({
                             on_attach = function(client, bufnr)
                                 vim.api.nvim_create_autocmd("BufWritePost", {
                                     pattern = { "*.js", "*.ts" },
@@ -75,7 +53,6 @@ return {
                     -- TypeScript Language Server specific setup
                     ["ts_ls"] = function()
                         lspconfig.ts_ls.setup({
-                            capabilities = capabilities,
                             on_attach = function(client, bufnr)
                                 -- Disable ts_ls formatting to avoid conflicts with Biome
                                 client.server_capabilities.documentFormattingProvider = false
@@ -93,7 +70,6 @@ return {
                     -- Biome Language Server specific setup
                     ["biome"] = function()
                         lspconfig.biome.setup({
-                            capabilities = capabilities,
                             cmd = { "biome", "lsp-proxy" },
                             filetypes = {
                                 "javascript",
@@ -143,7 +119,7 @@ return {
                                             vim.defer_fn(function()
                                                 vim.notify(
                                                     "Biome detected existing Prettier/ESLint configs. "
-                                                        .. "Run ':BiomeMigrate' to convert them to biome.json",
+                                                    .. "Run ':BiomeMigrate' to convert them to biome.json",
                                                     vim.log.levels.INFO,
                                                     { title = "Biome Migration" }
                                                 )
@@ -156,7 +132,6 @@ return {
                     end,
                     ["basedpyright"] = function()
                         lspconfig.basedpyright.setup({
-                            capabilities = capabilities,
                             settings = {
                                 basedpyright = {
                                     analysis = {
@@ -169,6 +144,20 @@ return {
                         })
                     end,
                 },
+            })
+
+
+            -- Clangd setup
+            vim.lsp.config("clangd", {
+                settings = {
+                    ["-style"] = {
+                        ["BasedOnStyle"] = { "GNU" },
+                    },
+                },
+            })
+
+            vim.lsp.config("gdscript", {
+                cmd = vim.lsp.rpc.connect("192.168.112.1", 6005),
             })
 
             -- Diagnostic configuration
@@ -184,37 +173,7 @@ return {
                 },
             })
 
-            -- Create user commands for Biome migration
-            vim.api.nvim_create_user_command("BiomeMigrate", function(opts)
-                local cwd = vim.fn.getcwd()
-                local cmd_args = opts.args ~= "" and opts.args or "prettier eslint"
-
-                -- Split args to handle both prettier and eslint
-                local migrate_prettier = cmd_args:match("prettier") ~= nil
-                local migrate_eslint = cmd_args:match("eslint") ~= nil
-
-                if migrate_prettier then
-                    vim.fn.system("cd " .. cwd .. " && pnpm @biomejs/biome migrate prettier --write")
-                    print("Migrated Prettier config to biome.json")
-                end
-
-                if migrate_eslint then
-                    vim.fn.system("cd " .. cwd .. " && pnpm @biomejs/biome migrate eslint --write")
-                    print("Migrated ESLint config to biome.json")
-                end
-
-                if not migrate_prettier and not migrate_eslint then
-                    print("Usage: :BiomeMigrate [prettier] [eslint]")
-                end
-            end, {
-                nargs = "*",
-                desc = "Migrate Prettier/ESLint configs to biome.json",
-                complete = function()
-                    return { "prettier", "eslint", "prettier eslint" }
-                end,
-            })
-
-            -- Optional: Set up LSP-related keymaps
+            -- Set up LSP-related keymaps
             vim.api.nvim_create_autocmd("LspAttach", {
                 group = vim.api.nvim_create_augroup("UserLspConfig", {}),
                 callback = function(ev)
