@@ -2,7 +2,21 @@ return {
     { "echasnovski/mini.ai", version = "*", opts = {} },
     { "echasnovski/mini.statusline", version = "*", opts = {} },
     { "echasnovski/mini.sessions", version = "*", opts = {} },
-    { "echasnovski/mini.notify", version = "*", opts = {} },
+    {
+        "echasnovski/mini.notify",
+        version = "*",
+        opts = {},
+        keys = {
+            {
+                "<leader>n",
+                function()
+                    local MiniNotify = require("mini.notify")
+                    MiniNotify.get_all()
+                    MiniNotify.show_history()
+                end,
+            }
+        },
+    },
     {
         "echasnovski/mini.files",
         version = "*",
