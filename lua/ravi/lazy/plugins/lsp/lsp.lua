@@ -5,6 +5,7 @@ return {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim",
             "saghen/blink.cmp", -- For capabilities
+            "saghen/blink.lib",
         },
         config = function()
             -- Get capabilities from blink.cmp
@@ -15,7 +16,12 @@ return {
             })
 
             -- Mason setup
-            require("mason").setup()
+            require("mason").setup({
+                registries = {
+                    "github:mason-org/mason-registry",
+                    "github:Crashdummyy/mason-registry",
+                },
+            })
             require("mason-lspconfig").setup({
                 ensure_installed = {
                     "lua_ls",
@@ -160,6 +166,7 @@ return {
                 cmd = vim.lsp.rpc.connect("192.168.112.1", 6005),
             })
 
+
             -- Diagnostic configuration
             vim.diagnostic.config({
                 -- update_in_insert = true,
@@ -189,14 +196,9 @@ return {
                     vim.keymap.set("n", "<leader>wl", function()
                         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                     end, opts)
-                    -- vim.keymap.set("n", "<leader>D", vim.lsp.buf.type_definition, opts)
                     vim.keymap.set("n", "<leader>re", vim.lsp.buf.rename, opts)
                     vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
                     vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-                    -- Using conform instead
-                    -- vim.keymap.set("n", "<leader>fr", function()
-                    --     vim.lsp.buf.format({ async = true })
-                    -- end, opts)
                 end,
             })
         end,

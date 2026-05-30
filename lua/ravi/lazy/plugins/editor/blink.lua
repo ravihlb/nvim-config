@@ -1,18 +1,17 @@
-if vim.g.vscode ~= nil then
-    return {}
-end
-
 return {
     "saghen/blink.cmp",
     dependencies = {
+        "saghen/blink.lib",
         "rafamadriz/friendly-snippets",
-        -- { "L3MON4D3/LuaSnip", version = "v2.*" },
         "mgalliou/blink-cmp-tmux",
     },
-    version = "v2.*",
-    build = { "cargo build --release" },
+    build = function()
+        -- build the fuzzy matcher, optionally add a timeout to `pwait(timeout_ms)`
+        -- you can use `gb` in `:Lazy` to rebuild the plugin as needed
+        require('blink.cmp').build():pwait()
+    end,
     opts = {
-        fuzzy = { implementation = "prefer_rust" },
+        fuzzy = { implementation = "prefer_rust_with_warning" },
         keymap = {
             preset = "default",
             ["<C-p>"] = { "select_prev", "fallback" },
@@ -46,19 +45,19 @@ return {
                         end,
                     },
                 },
-                -- tmux = {
-                --     module = "blink-cmp-tmux",
-                --     name = "tmux",
-                --     -- default options
-                --     opts = {
-                --         all_panes = true,
-                --         capture_history = false,
-                --         -- only suggest completions from `tmux` if the `trigger_chars` are
-                --         -- used
-                --         -- triggered_only = false,
-                --         -- trigger_chars = { "." },
-                --     },
-                -- },
+                tmux = {
+                    module = "blink-cmp-tmux",
+                    name = "tmux",
+                    -- default options
+                    opts = {
+                        all_panes = true,
+                        capture_history = false,
+                        -- only suggest completions from `tmux` if the `trigger_chars` are
+                        -- used
+                        -- triggered_only = false,
+                        -- trigger_chars = { "." },
+                    },
+                },
             },
         },
         completion = {
@@ -79,8 +78,8 @@ return {
                     align_to = "label",
                     padding = 1,
                     columns = {
-                        { "label", "label_description", gap = 1.5 },
-                        { "kind_icon", "kind", gap = 1 },
+                        { "label",     "label_description", gap = 1.5 },
+                        { "kind_icon", "kind",              gap = 1 },
                     },
                     treesitter = { "lsp" },
                 },
