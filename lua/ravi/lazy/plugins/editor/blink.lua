@@ -10,6 +10,7 @@ return {
         -- you can use `gb` in `:Lazy` to rebuild the plugin as needed
         require('blink.cmp').build():pwait()
     end,
+    version = "v2.*",
     opts = {
         fuzzy = { implementation = "prefer_rust_with_warning" },
         keymap = {
@@ -78,7 +79,7 @@ return {
                     align_to = "label",
                     padding = 1,
                     columns = {
-                        { "label",     "label_description", gap = 1.5 },
+                        { "label",     "label_description", gap = 2 },
                         { "kind_icon", "kind",              gap = 1 },
                     },
                     treesitter = { "lsp" },
