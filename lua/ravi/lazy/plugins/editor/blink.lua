@@ -1,3 +1,7 @@
+if vim.g.vscode ~= nil then
+    return {}
+end
+
 return {
     "saghen/blink.cmp",
     dependencies = {
